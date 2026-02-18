@@ -1,0 +1,345 @@
+{
+    "users": [
+      {
+        "_id": 1,
+        "nom": "Testeur",
+        "prenom": "Admin",
+        "email": "admin@email.com",
+        "contact": "0330000001",
+        "role": {
+          "id": 1,
+          "label": "ADMIN"
+        },
+        "date_creation": "2026-02-12T00:00:00Z",
+        "date_update": "2026-02-12T00:00:00Z"
+      },
+      {
+        "_id": 2,
+        "nom": "Testeur",
+        "prenom": "Boutique",
+        "email": "boutique@email.com",
+        "contact": "0330000002",
+        "role": {
+          "id": 2,
+          "label": "BOUTIQUE"
+        },
+        "date_creation": "2026-02-12T00:00:00Z",
+        "date_update": "2026-02-12T00:00:00Z"
+      },
+      {
+        "_id": 3,
+        "nom": "Testeur",
+        "prenom": "Client",
+        "email": "client@email.com",
+        "contact": "0330000003",
+        "role": {
+          "id": 3,
+          "label": "CLIENT"
+        },
+        "date_creation": "2026-02-12T00:00:00Z",
+        "date_update": "2026-02-12T00:00:00Z"
+      }
+    ],
+
+
+
+
+
+    "roles": [
+      {
+        "_id": 1,
+        "label": "ADMIN",
+        "description": "Administrateur du système",
+        "priorite": 1
+      },
+      {
+        "_id": 2,
+        "label": "BOUTIQUE",
+        "description": "Gerant de boutique",
+        "priorite": 10
+      },
+      {
+        "_id": 3,
+        "label": "CLIENT",
+        "description": "Client du centre commercial",
+        "priorite": 100
+      }
+    ],
+
+
+
+
+
+    "locals": [
+      {
+        "_id": 1,
+        "taille": 10,
+        "position": "Bloc A - 01",
+        "loyer": [
+          {
+            "montant": 100000,
+            "date": "2026-02-12T00:00:00Z"
+          }
+        ],
+        "etat": {
+          "id": 1,
+          "libelle": "LIBRE"
+        }
+      },
+      {
+        "_id": 2,
+        "taille": 20,
+        "position": "Bloc A - 02",
+        "loyer": [
+          {
+            "montant": 200000,
+            "date": "2026-02-12T00:00:00Z"
+          }
+        ],
+        "etat": {
+          "id": 2,
+          "libelle": "OCCUPE"
+        }
+      },
+      {
+        "_id": 3,
+        "taille": 100,
+        "position": "Bloc A - 03",
+        "loyer": [
+          {
+            "montant": 1000000,
+            "date": "2026-02-12T00:00:00Z"
+          }
+        ],
+        "etat": {
+          "id": 1,
+          "libelle": "LIBRE"
+        }
+      }
+    ],
+
+
+
+
+
+    "etat_locals": [
+      {
+        "_id": 1,
+        "libelle": "LIBRE"
+      },
+      {
+        "_id": 2,
+        "libelle": "OCCUPE"
+      }
+    ],
+
+
+
+
+
+    "abonnements": [
+      {
+        "_id": 1,
+        "label": "Premium",
+        "prix": [
+          {
+            "montant": 100000,
+            "date": "2026-02-12T00:00:00Z"
+          }
+        ],
+        "description": "Accès premium",
+        "priorite": 1,
+        "date_creation": "2026-02-12T00:00:00Z",
+        "date_update": "2026-02-12T00:00:00Z"
+      },
+      {
+        "_id": 2,
+        "label": "Gold",
+        "prix": [
+          {
+            "montant": 50000,
+            "date": "2026-02-12T00:00:00Z"
+          }
+        ],
+        "description": "Accès gold",
+        "priorite": 10,
+        "date_creation": "2026-02-12T00:00:00Z",
+        "date_update": "2026-02-12T00:00:00Z"
+      },
+      {
+        "_id": 3,
+        "label": "Silver",
+        "prix": [
+          {
+            "montant": 20000,
+            "date": "2026-02-12T00:00:00Z"
+          }
+        ],
+        "description": "Accès silver",
+        "priorite": 100,
+        "date_creation": "2026-02-12T00:00:00Z",
+        "date_update": "2026-02-12T00:00:00Z"
+      }
+    ],
+
+
+
+
+    "boutiques": [
+        {
+        "_id": 1,
+        "nom": "Boutique ABC",
+        "description": "Vente de vêtements",
+        "logo": "logoABC.png",
+        "fond": "fondABC.png",
+        "users": [
+            {
+            "id_user": 2,
+            "email": "boutique@email.com"
+            }
+        ],
+        "local": [
+            {
+            "id": 2,
+            "position": "Bloc A - 02",
+            "loyer": 300000,
+            "date": "2026-02-12T00:00:00Z"
+            }
+        ],
+        "abonnement": [
+            {
+            "id": 1,
+            "libelle": "Premium",
+            "montant": 100000,
+            "date": "2026-02-12T00:00:00Z"
+            }
+        ],
+        "date_creation": "2026-02-12T00:00:00Z",
+        "date_update": "2026-02-12T00:00:00Z"
+        }
+    ],
+
+
+
+
+
+    "produits": [
+        {
+        "_id": 1,
+        "id_boutique": 1,
+        "label": "Samsung S26 Ultra",
+        "description": "Telephone premium de Samsung en 2026",
+        "qte": 100,
+        "images": ["img1.png", "img2.png"],
+        "prix": [
+            { "date": "2025-01-01T00:00:00Z", "montant": 20000 },
+            { "date": "2025-02-01T00:00:00Z", "montant": 22000 }
+        ],
+        "solde": [
+            { "debut": "2025-02-10T00:00:00Z", "fin": "2025-02-20T00:00:00Z", "pourcentage": 10 }
+        ],
+        "categories": [
+            { "id": 100, "label": "Telephone" }
+        ],
+        "etat": { "_id": 1, "libelle": "AFFICHER" },
+        "duree_panier": 60,
+        "date_creation": "2026-02-12T00:00:00Z",
+        "date_update": "2026-02-12T00:00:00Z"
+        }
+    ],
+
+
+    "etat_produits": [
+        { "_id": 1, "libelle": "AFFICHER" },
+        { "_id": 2, "libelle": "CACHER" }
+    ],
+
+
+    "categorie_produits": [
+        { "_id": 1, "label": "Sans-cetegorie", "description": "Tous produits sans categorie", "base": null },
+        { "_id": 10, "label": "High tech", "description": "Tous produits High tech", "base": null },
+        { "_id": 100, "label": "Telephone", "description": "Tous types de telephone", "base": { "id": 10, "label": "High tech" } }
+    ],
+
+
+    "stocks": [
+        {
+        "_id": 1,
+        "id_produit": 1,
+        "type": { "id": 1, "label": "ENTREE" },
+        "date_creation": "2026-02-12T00:00:00Z",
+        "date_update": "2026-02-12T00:00:00Z"
+        }
+    ],
+
+
+    "type_stocks": [
+        { "_id": 1, "libelle": "ENTREE" },
+        { "_id": 2, "libelle": "SORTIE" }
+    ],
+
+
+
+
+
+
+    "loyers": [
+        {
+        "_id": 1,
+        "id_boutique": 1,
+        "montant": 300000,
+        "mois": 2,
+        "annee": 2025,
+        "date_creation": "2026-02-12T00:00:00Z",
+        "date_update": "2026-02-12T00:00:00Z"
+        }
+    ],
+
+
+
+
+
+    "paniers": [
+        {
+        "_id": { "$oid": "000000000000000000000001" },
+        "id_user": 1,
+        "produits": [
+            { "id": 100, "nom": "Samsung S26 Ultra", "qte": 2, "duree": 60 }
+        ],
+        "date_creation": "2026-02-12T00:00:00Z",
+        "date_update": "2026-02-12T00:00:00Z"
+        }
+    ],
+
+
+
+
+
+    "commandes": [
+        {
+        "_id": { "$oid": "000000000000000000000002" },
+        "id_user": 1,
+        "produits": [
+            { "id": 100, "nom": "Samsung S26 Ultra", "qte": 2, "duree": 60 }
+        ],
+        "statut": { "_id": 1, "libelle": "ENVOYER" },
+        "date_creation": "2026-02-12T00:00:00Z",
+        "date_update": "2026-02-12T00:00:00Z"
+        }
+    ],
+
+
+
+
+    
+    "statut_commandes": [
+        { "_id": 1, "libelle": "ENVOYER" },
+        { "_id": 2, "libelle": "VALIDER" },
+        { "_id": 3, "libelle": "ANNULER" }
+    ]
+
+
+
+      
+  }
+  
