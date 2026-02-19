@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 
-// Remplace "user", "mdp" et "nomDeTaDB" par tes valeurs
-const user = "steven_db_user";
-const mdp =  "98ts9q1UmfkvLSXf";
-const db = "m1p13mean-steven-hakim";
-const MONGO_URI = "mongodb+srv://"+user+":"+mdp+"@dev-cluster.owonqka.mongodb.net/"+db+"?retryWrites=true&w=majority";
+const user = process.env.MONGODB_USER;
+const mdp  = encodeURIComponent(process.env.MONGODB_MDP);
+const db   = process.env.MONGODB_DB;
+
+const MONGO_URI = `mongodb+srv://${user}:${mdp}@dev-cluster.owonqka.mongodb.net/${db}?retryWrites=true&w=majority`;
+
 
 const connectDB = async () => {
   try {
