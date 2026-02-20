@@ -1,0 +1,101 @@
+const mongoose = require("mongoose");
+
+// ======= MODELE PRODUIT ETAT =======
+const produitEtatSchema = new mongoose.Schema(
+  {
+    _id: { type: Number, required: true },
+    libelle: { type: String, required: true, uppercase: true, trim: true }
+  },
+  { timestamps: { createdAt: "date_creation", updatedAt: "date_update" } }
+);
+
+const ProduitEtat = mongoose.model("ProduitEtat", produitEtatSchema, "produits_etat");
+
+// ======= MODELE PRODUIT CATEGORIE =======
+const produitCategorieSchema = new mongoose.Schema(
+  {
+    _id: { type: Number, required: true },
+    label: { type: String, required: true, trim: true },
+    description: { type: String, trim: true },
+    base: {
+      id: Number,
+      label: String
+    }
+  },
+  { timestamps: { createdAt: "date_creation", updatedAt: "date_update" } }
+);
+
+const ProduitCategorie = mongoose.model(
+  "ProduitCategorie",
+  produitCategorieSchema,
+  "produits_categorie"
+);
+
+// ======= MODELE PRODUIT =======
+// Sous-schemas pour images, prix, solde, categories, etat
+const imageSchema = new mongoose.Schema(
+  {
+    message: String,
+    url: String,
+    originalName: String,
+    format: String,
+    size: Number
+  },
+  { _id: false }
+);
+
+const prixSchema = new mongoose.Schema(
+  {
+    date: Date,
+    montant: Number
+  },
+  { _id: false }
+);
+
+const soldeSchema = new mongoose.Schema(
+  {
+    debut: Date,
+    fin: Date,
+    pourcentage: Number
+  },
+  { _id: false }
+);
+
+const categorieSchema = new mongoose.Schema(
+  {
+    id: Number,
+    label: String
+  },
+  { _id: false }
+);
+
+const etatSchema = new mongoose.Schema(
+  {
+    _id: Number,
+    libelle: String
+  },
+  { _id: false }
+);
+
+const produitSchema = new mongoose.Schema(
+  {
+    _id: Number,
+    id_boutique: Number,
+    label: String,
+    description: String,
+    qte: Number,
+    images: [imageSchema],
+    prix: [prixSchema],
+    solde: [soldeSchema],
+    categories: [categorieSchema],
+    etat: etatSchema,
+    duree_panier: Number
+  },
+  {
+    timestamps: { createdAt: "date_creation", updatedAt: "date_update" }
+  }
+);
+
+const Produit = mongoose.model("Produit", produitSchema, "produits");
+
+module.exports = { Produit, ProduitEtat, ProduitCategorie };

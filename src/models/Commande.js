@@ -1,0 +1,50 @@
+const mongoose = require("mongoose");
+
+// ======= MODELE COMMANDE STATUT =======
+const commandeStatutSchema = new mongoose.Schema(
+  {
+    _id: { type: Number, required: true },
+    libelle: { type: String, required: true, uppercase: true, trim: true }
+  },
+  { timestamps: { createdAt: "date_creation", updatedAt: "date_update" } }
+);
+
+// Nom exact de la collection MongoDB : commandes_statut
+const CommandeStatut = mongoose.model("CommandeStatut", commandeStatutSchema, "commandes_statut");
+
+// ======= MODELE COMMANDE =======
+const produitSchema = new mongoose.Schema(
+  {
+    id: Number,
+    nom: String,
+    qte: Number,
+    duree: Number
+  },
+  { _id: false }
+);
+
+const commandeSchema = new mongoose.Schema(
+  {
+    _id: Number,
+    id_user: Number,
+    label: String,
+    produits: [produitSchema],
+    statut: {
+      type: Number,
+      ref: "CommandeStatut",
+      required: true,
+      default: 1 // statut par défaut ENVOYER
+    }
+  },
+  {
+    timestamps: {
+      createdAt: "date_creation",
+      updatedAt: "date_update"
+    }
+  }
+);
+
+// Nom exact de la collection MongoDB : commandes
+const Commande = mongoose.model("Commande", commandeSchema, "commandes");
+
+module.exports = { Commande, CommandeStatut };

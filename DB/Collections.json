@@ -41,11 +41,7 @@
       }
     ],
 
-
-
-
-
-    "roles": [
+    "users_role": [
       {
         "_id": 1,
         "label": "ADMIN",
@@ -118,11 +114,7 @@
       }
     ],
 
-
-
-
-
-    "etat_locals": [
+    "locals_etat": [
       {
         "_id": 1,
         "libelle": "LIBRE"
@@ -130,6 +122,10 @@
       {
         "_id": 2,
         "libelle": "OCCUPE"
+      },
+      {
+        "_id": 3,
+        "libelle": "RESERVE"
       }
     ],
 
@@ -230,7 +226,15 @@
         "label": "Samsung S26 Ultra",
         "description": "Telephone premium de Samsung en 2026",
         "qte": 100,
-        "images": ["img1.png", "img2.png"],
+        "images": [
+          {
+            "message": "Fichier uploadé avec succès ✅",
+            "url": "https://res.cloudinary.com/dl1gg51mg/image/upload/v1771594546/Cloudinary-m1p13mean-steven-hakim/ovenrb4n6ubz760m44hv.png",
+            "originalName": "Stretch.png",
+            "format": "image/png",
+            "size": 7274651
+          }
+        ],
         "prix": [
             { "date": "2025-01-01T00:00:00Z", "montant": 20000 },
             { "date": "2025-02-01T00:00:00Z", "montant": 22000 }
@@ -249,17 +253,20 @@
     ],
 
 
-    "etat_produits": [
+    "produits_etat": [
         { "_id": 1, "libelle": "AFFICHER" },
         { "_id": 2, "libelle": "CACHER" }
     ],
 
 
-    "categorie_produits": [
+    "produits_categorie": [
         { "_id": 1, "label": "Sans-cetegorie", "description": "Tous produits sans categorie", "base": null },
         { "_id": 10, "label": "High tech", "description": "Tous produits High tech", "base": null },
         { "_id": 100, "label": "Telephone", "description": "Tous types de telephone", "base": { "id": 10, "label": "High tech" } }
     ],
+
+
+
 
 
     "stocks": [
@@ -273,7 +280,7 @@
     ],
 
 
-    "type_stocks": [
+    "stocks_type": [
         { "_id": 1, "libelle": "ENTREE" },
         { "_id": 2, "libelle": "SORTIE" }
     ],
@@ -301,8 +308,9 @@
 
     "paniers": [
         {
-        "_id": { "$oid": "000000000000000000000001" },
+        "_id": 1,
         "id_user": 1,
+        "labele": "Panier de produit electronic",
         "produits": [
             { "id": 100, "nom": "Samsung S26 Ultra", "qte": 2, "duree": 60 }
         ],
@@ -317,8 +325,9 @@
 
     "commandes": [
         {
-        "_id": { "$oid": "000000000000000000000002" },
+        "_id": 1,
         "id_user": 1,
+        "labele": "Commande d'utilisateur",
         "produits": [
             { "id": 100, "nom": "Samsung S26 Ultra", "qte": 2, "duree": 60 }
         ],
@@ -332,7 +341,7 @@
 
 
     
-    "statut_commandes": [
+    "commandes_statut": [
         { "_id": 1, "libelle": "ENVOYER" },
         { "_id": 2, "libelle": "VALIDER" },
         { "_id": 3, "libelle": "ANNULER" }
