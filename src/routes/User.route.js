@@ -1,8 +1,56 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const router = express.Router();
 const { User, UserRole } = require("../models/User");
-
 // ----- ROUTES USERS -----
+
+router.post("/connexion", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({
+      message: "Email et mot de passe requis",
+    });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({
+        message: "Utilisateur introuvable",
+      });
+    }
+    if (user.password !== password) {
+      return res.status(401).json({
+        message: "Mot de passe incorrect",
+      });
+    }
+   // 🔐 Génération du TOKEN JWT
+    const token = jwt.sign(
+      {
+        userId: user._id,
+        email: user.email,
+        role: user.role,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.JWT_EXPIRES_IN || "1d",
+      }
+    );
+    // ✅ Réponse frontend
+    res.json({
+      email: user.email,
+      role: user.role,
+      token,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
+
 // GET ALL USERS
 router.get("/", async (req, res) => {
   try {
@@ -17,7 +65,8 @@ router.get("/", async (req, res) => {
 router.get("/byId/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).json({ message: "Utilisateur non trouvé" });
+    if (!user)
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -40,9 +89,10 @@ router.put("/update/:id", async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-      runValidators: true
+      runValidators: true,
     });
-    if (!updatedUser) return res.status(404).json({ message: "Utilisateur non trouvé" });
+    if (!updatedUser)
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
     res.json(updatedUser);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -53,7 +103,8 @@ router.put("/update/:id", async (req, res) => {
 router.delete("/delete/:id", async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
-    if (!deletedUser) return res.status(404).json({ message: "Utilisateur non trouvé" });
+    if (!deletedUser)
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
     res.json({ message: "Utilisateur supprimé", deletedUser });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -96,11 +147,16 @@ router.post("/roles/create", async (req, res) => {
 // UPDATE ROLE
 router.put("/roles/update/:id", async (req, res) => {
   try {
-    const updatedRole = await UserRole.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true
-    });
-    if (!updatedRole) return res.status(404).json({ message: "Role non trouvé" });
+    const updatedRole = await UserRole.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
+    if (!updatedRole)
+      return res.status(404).json({ message: "Role non trouvé" });
     res.json(updatedRole);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -111,11 +167,13 @@ router.put("/roles/update/:id", async (req, res) => {
 router.delete("/roles/delete/:id", async (req, res) => {
   try {
     const deletedRole = await UserRole.findByIdAndDelete(req.params.id);
-    if (!deletedRole) return res.status(404).json({ message: "Role non trouvé" });
+    if (!deletedRole)
+      return res.status(404).json({ message: "Role non trouvé" });
     res.json({ message: "Role supprimé", deletedRole });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 module.exports = router;

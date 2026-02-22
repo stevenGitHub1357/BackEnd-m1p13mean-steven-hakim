@@ -30,12 +30,12 @@ const userSchema = new mongoose.Schema(
     nom: String,
     prenom: String,
     email: String,
+    password:String,
     contact: String,
     role: roleSchema
   },
   { timestamps: { createdAt: "date_creation", updatedAt: "date_update" } }
 );
-
 // Nom exact de la collection MongoDB : users
 const User = mongoose.model("User", userSchema, "users");
 
