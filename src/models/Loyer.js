@@ -15,6 +15,11 @@ const loyerSchema = new mongoose.Schema(
       required: true,
       min: 0
     },
+    montant_payer: {
+      type: Number,
+      required: true,
+      min: 0
+    },
     mois: {
       type: Number,
       required: true,

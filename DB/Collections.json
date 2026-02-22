@@ -283,6 +283,7 @@
         "_id": 1,
         "id_boutique": 1,
         "montant": 300000,
+        "montant_payer": 300000,
         "mois": 2,
         "annee": 2025,
         "date_creation": "2026-02-12T00:00:00Z",

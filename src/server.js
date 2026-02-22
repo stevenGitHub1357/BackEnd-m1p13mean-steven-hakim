@@ -5,11 +5,15 @@ const cors = require("cors");
 
 const connectDB = require("./config/db");
 const uploadRoutes = require("./routes/Upload.route");
+
 const userRoutes = require("./routes/User.route");
 const commandeRoutes = require("./routes/Commande.route")
 const stockRoutes = require("./routes/Stock.route")
 const produitRoutes = require("./routes/Produit.route")
 const localRoutes = require("./routes/Local.route")
+const loyerRoutes = require("./routes/Loyer.route")
+const boutiqueRoutes = require("./routes/Boutique.route")
+const abonnementRoutes = require("./routes/Abonnement.route")
 
 const app = express();
 app.use(express.json());
@@ -28,6 +32,9 @@ app.use("/commandes", commandeRoutes);
 app.use("/stocks", stockRoutes);
 app.use("/produits", produitRoutes);
 app.use("/locals", localRoutes);
+app.use("/loyers", loyerRoutes);
+app.use("/boutiques", boutiqueRoutes);
+app.use("/abonnements", abonnementRoutes);
 
 // Serveur
 const PORT = process.env.PORT || 3000;

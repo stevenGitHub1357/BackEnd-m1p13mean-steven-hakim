@@ -9,7 +9,7 @@ npm install mongodb
 npm install mongoose
 npm install ors
 npm install multer
-npm install cloudinary
+npm install cloudinary@1.41.0
 npm install multer-storage-cloudinary
 npm install body-parser
 npm install dotenv
