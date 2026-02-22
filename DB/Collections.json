@@ -216,9 +216,6 @@
     ],
 
 
-
-
-
     "produits": [
         {
         "_id": 1,
@@ -265,10 +262,6 @@
         { "_id": 100, "label": "Telephone", "description": "Tous types de telephone", "base": { "id": 10, "label": "High tech" } }
     ],
 
-
-
-
-
     "stocks": [
         {
         "_id": 1,
@@ -285,11 +278,6 @@
         { "_id": 2, "libelle": "SORTIE" }
     ],
 
-
-
-
-
-
     "loyers": [
         {
         "_id": 1,
@@ -301,10 +289,6 @@
         "date_update": "2026-02-12T00:00:00Z"
         }
     ],
-
-
-
-
 
     "paniers": [
         {
