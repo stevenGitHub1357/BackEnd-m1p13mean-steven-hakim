@@ -4,8 +4,9 @@
         "_id": 1,
         "nom": "Testeur",
         "prenom": "Admin",
+        "password": "admin",
         "email": "admin@email.com",
-        "contact": "0330000001",
+        "contact": "0300000001",
         "role": {
           "id": 1,
           "label": "ADMIN"
@@ -18,7 +19,8 @@
         "nom": "Testeur",
         "prenom": "Boutique",
         "email": "boutique@email.com",
-        "contact": "0330000002",
+        "password": "boutique",
+        "contact": "0300000002",
         "role": {
           "id": 2,
           "label": "BOUTIQUE"
@@ -31,7 +33,8 @@
         "nom": "Testeur",
         "prenom": "Client",
         "email": "client@email.com",
-        "contact": "0330000003",
+        "password": "client",
+        "contact": "0300000003",
         "role": {
           "id": 3,
           "label": "CLIENT"
