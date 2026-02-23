@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const { User, UserRole } = require("../models/User");
+const { verifyToken, authorizeRoles } = require("../auth/middleware")
 
 // ----- ROUTES USERS -----
 // GET ALL USERS
-router.get("/", async (req, res) => {
+router.get("/", authorizeRoles("ADMIN"), verifyToken, async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
@@ -14,7 +15,7 @@ router.get("/", async (req, res) => {
 });
 
 // GET USER BY ID
-router.get("/byId/:id", async (req, res) => {
+router.get("/byId/:id", authorizeRoles("USER","ADMIN"), verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) return res.status(404).json({ message: "Utilisateur non trouvé" });
@@ -25,7 +26,7 @@ router.get("/byId/:id", async (req, res) => {
 });
 
 // CREATE USER
-router.post("/create", async (req, res) => {
+router.post("/create", verifyToken, async (req, res) => {
   try {
     const newUser = new User(req.body);
     const savedUser = await newUser.save();
@@ -36,7 +37,7 @@ router.post("/create", async (req, res) => {
 });
 
 // UPDATE USER
-router.put("/update/:id", async (req, res) => {
+router.put("/update/:id", verifyToken, async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -50,7 +51,7 @@ router.put("/update/:id", async (req, res) => {
 });
 
 // DELETE USER
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
     if (!deletedUser) return res.status(404).json({ message: "Utilisateur non trouvé" });
@@ -62,7 +63,7 @@ router.delete("/delete/:id", async (req, res) => {
 
 // ----- ROUTES ROLES DANS LA MEME ROUTE -----
 // GET ALL ROLES
-router.get("/roles", async (req, res) => {
+router.get("/roles", verifyToken, async (req, res) => {
   try {
     const roles = await UserRole.find();
     res.json(roles);
@@ -72,7 +73,7 @@ router.get("/roles", async (req, res) => {
 });
 
 // GET ROLE BY ID
-router.get("/roles/byId/:id", async (req, res) => {
+router.get("/roles/byId/:id", verifyToken, async (req, res) => {
   try {
     const role = await UserRole.findById(req.params.id);
     if (!role) return res.status(404).json({ message: "Role non trouvé" });
@@ -83,7 +84,7 @@ router.get("/roles/byId/:id", async (req, res) => {
 });
 
 // CREATE ROLE
-router.post("/roles/create", async (req, res) => {
+router.post("/roles/create", verifyToken, async (req, res) => {
   try {
     const newRole = new UserRole(req.body);
     const savedRole = await newRole.save();
@@ -94,7 +95,7 @@ router.post("/roles/create", async (req, res) => {
 });
 
 // UPDATE ROLE
-router.put("/roles/update/:id", async (req, res) => {
+router.put("/roles/update/:id", verifyToken, async (req, res) => {
   try {
     const updatedRole = await UserRole.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -108,7 +109,7 @@ router.put("/roles/update/:id", async (req, res) => {
 });
 
 // DELETE ROLE
-router.delete("/roles/delete/:id", async (req, res) => {
+router.delete("/roles/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedRole = await UserRole.findByIdAndDelete(req.params.id);
     if (!deletedRole) return res.status(404).json({ message: "Role non trouvé" });

@@ -14,6 +14,7 @@ const localRoutes = require("./routes/Local.route")
 const loyerRoutes = require("./routes/Loyer.route")
 const boutiqueRoutes = require("./routes/Boutique.route")
 const abonnementRoutes = require("./routes/Abonnement.route")
+const authRoutes = require("./auth/auth.route")
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,9 @@ app.use(cors());
 
 // Connexion à MongoDB
 connectDB();
+
+// Login
+app.use("/auth", authRoutes);
 
 // Upload
 app.use("/upload", uploadRoutes);
