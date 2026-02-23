@@ -5,7 +5,7 @@ const { verifyToken, authorizeRoles } = require("../auth/middleware")
 
 // ----- ROUTES USERS -----
 // GET ALL USERS
-router.get("/", authorizeRoles("ADMIN"), verifyToken, async (req, res) => {
+router.get("/", verifyToken, authorizeRoles("ADMIN"), async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
@@ -15,7 +15,7 @@ router.get("/", authorizeRoles("ADMIN"), verifyToken, async (req, res) => {
 });
 
 // GET USER BY ID
-router.get("/byId/:id", authorizeRoles("USER","ADMIN"), verifyToken, async (req, res) => {
+router.get("/byId/:id", verifyToken,, authorizeRoles("ADMIN"), async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) return res.status(404).json({ message: "Utilisateur non trouvé" });
