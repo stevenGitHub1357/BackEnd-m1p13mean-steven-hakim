@@ -5,7 +5,7 @@ const { verifyToken, authorizeRoles } = require("../auth/middleware")
 
 // ----- ROUTES USERS -----
 // GET ALL USERS
-router.get("/", verifyToken, authorizeRoles("ADMIN", "BOUTIQUE"), async (req, res) => {
+router.get("/", verifyToken, authorizeRoles("ADMIN"), async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
