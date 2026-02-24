@@ -16,10 +16,10 @@ const prixSchema = new mongoose.Schema(
 
 const abonnementSchema = new mongoose.Schema(
   {
-    _id: {
-      type: Number,
-      required: true
-    },
+    // _id: {
+    //   type: Number,
+    //   required: true
+    // },
     label: {
       type: String,
       required: true,

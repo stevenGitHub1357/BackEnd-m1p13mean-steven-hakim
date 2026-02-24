@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 // ======= MODELE USER ROLE =======
 const userRoleSchema = new mongoose.Schema(
   {
-    _id: { type: Number, required: true },
+    // _id: { type: String, required: true },
     label: { type: String, required: true, uppercase: true, trim: true },
     description: String,
     priorite: Number
@@ -18,7 +18,7 @@ const UserRole = mongoose.model("UserRole", userRoleSchema, "users_role");
 // Sous-schema role
 const roleSchema = new mongoose.Schema(
   {
-    id: Number,
+    id: String,
     label: String
   },
   { _id: false }
@@ -26,7 +26,7 @@ const roleSchema = new mongoose.Schema(
 
 const userSchema = new mongoose.Schema(
   {
-    _id: Number,
+    // _id: Number,
     nom: String,
     prenom: String,
     email: String,

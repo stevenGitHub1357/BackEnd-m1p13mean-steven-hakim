@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 // ======= MODELE TYPE STOCK =======
 const typeStockSchema = new mongoose.Schema(
   {
-    _id: { type: Number, required: true },
+    // _id: { type: String, required: true },
     libelle: { type: String, required: true, uppercase: true, trim: true }
   },
   { timestamps: { createdAt: "date_creation", updatedAt: "date_update" } }
@@ -16,7 +16,7 @@ const TypeStock = mongoose.model("TypeStock", typeStockSchema, "stocks_type");
 // Sous-schéma pour le type
 const typeSchema = new mongoose.Schema(
   {
-    id: { type: Number, required: true },
+    id: { type: String, required: true },
     label: { type: String, required: true, uppercase: true, trim: true }
   },
   { _id: false }
@@ -24,7 +24,7 @@ const typeSchema = new mongoose.Schema(
 
 const stockSchema = new mongoose.Schema(
   {
-    _id: Number,
+    // _id: Number,
     id_produit: Number,
     type: typeSchema
   },

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 // ======= MODELE PRODUIT ETAT =======
 const produitEtatSchema = new mongoose.Schema(
   {
-    _id: { type: Number, required: true },
+    _id: { type: String, required: true },
     libelle: { type: String, required: true, uppercase: true, trim: true }
   },
   { timestamps: { createdAt: "date_creation", updatedAt: "date_update" } }
@@ -14,7 +14,7 @@ const ProduitEtat = mongoose.model("ProduitEtat", produitEtatSchema, "produits_e
 // ======= MODELE PRODUIT CATEGORIE =======
 const produitCategorieSchema = new mongoose.Schema(
   {
-    _id: { type: Number, required: true },
+    // _id: { type: String, required: true },
     label: { type: String, required: true, trim: true },
     description: { type: String, trim: true },
     base: {
@@ -63,7 +63,7 @@ const soldeSchema = new mongoose.Schema(
 
 const categorieSchema = new mongoose.Schema(
   {
-    id: Number,
+    id: String,
     label: String
   },
   { _id: false }
@@ -71,7 +71,7 @@ const categorieSchema = new mongoose.Schema(
 
 const etatSchema = new mongoose.Schema(
   {
-    _id: Number,
+    // _id: String,
     libelle: String
   },
   { _id: false }
@@ -79,7 +79,7 @@ const etatSchema = new mongoose.Schema(
 
 const produitSchema = new mongoose.Schema(
   {
-    _id: Number,
+    // _id: String,
     id_boutique: Number,
     label: String,
     description: String,

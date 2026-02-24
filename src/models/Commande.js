@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 // ======= MODELE COMMANDE STATUT =======
 const commandeStatutSchema = new mongoose.Schema(
   {
-    _id: { type: Number, required: true },
+    // _id: { type: String, required: true },
     libelle: { type: String, required: true, uppercase: true, trim: true }
   },
   { timestamps: { createdAt: "date_creation", updatedAt: "date_update" } }
@@ -15,7 +15,7 @@ const CommandeStatut = mongoose.model("CommandeStatut", commandeStatutSchema, "c
 // ======= MODELE COMMANDE =======
 const produitSchema = new mongoose.Schema(
   {
-    id: Number,
+    id: String,
     nom: String,
     qte: Number,
     duree: Number
@@ -25,7 +25,7 @@ const produitSchema = new mongoose.Schema(
 
 const commandeSchema = new mongoose.Schema(
   {
-    _id: Number,
+    // _id: Number,
     id_user: Number,
     label: String,
     produits: [produitSchema],
