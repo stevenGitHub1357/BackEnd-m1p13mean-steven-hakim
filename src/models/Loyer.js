@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 
 const loyerSchema = new mongoose.Schema(
   {
-    _id: {
-      type: Number,
-      required: true
-    },
+    // _id: {
+    //   type: Number,
+    //   required: true
+    // },
     id_boutique: {
       type: Number,
       required: true

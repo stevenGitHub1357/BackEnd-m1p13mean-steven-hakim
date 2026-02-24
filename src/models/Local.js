@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 // ======= MODELE LOCAL ETAT =======
 const localEtatSchema = new mongoose.Schema(
   {
-    _id: { type: Number, required: true },
+    // _id: { type: String, required: true },
     libelle: { type: String, required: true, uppercase: true, trim: true }
   },
   { timestamps: { createdAt: "date_creation", updatedAt: "date_update" } }
@@ -24,7 +24,7 @@ const loyerSchema = new mongoose.Schema(
 
 const etatSchema = new mongoose.Schema(
   {
-    id: Number,
+    id: String,
     libelle: String
   },
   { _id: false }
@@ -32,7 +32,7 @@ const etatSchema = new mongoose.Schema(
 
 const localSchema = new mongoose.Schema(
   {
-    _id: Number,
+    // _id: Number,
     taille: Number,
     position: String,
     loyer: [loyerSchema],

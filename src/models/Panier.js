@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const produitSchema = new mongoose.Schema(
   {
     id: {
-      type: Number,
+      type: String,
       required: true
     },
     nom: {
@@ -27,10 +27,10 @@ const produitSchema = new mongoose.Schema(
 
 const panierSchema = new mongoose.Schema(
   {
-    _id: {
-      type: Number,
-      required: true
-    },
+    // _id: {
+    //   type: Number,
+    //   required: true
+    // },
     id_user: {
       type: Number,
       required: true

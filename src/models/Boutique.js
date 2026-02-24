@@ -6,6 +6,24 @@ const userSchema = new mongoose.Schema(
       type: Number,
       required: true
     },
+    nom: {
+      type: String,
+      required: true,
+      lowercase: true,
+      trim: true
+    },
+    prenom: {
+      type: String,
+      required: true,
+      lowercase: true,
+      trim: true
+    },
+    contact: {
+      type: String,
+      required: true,
+      lowercase: true,
+      trim: true
+    },
     email: {
       type: String,
       required: true,
@@ -19,7 +37,7 @@ const userSchema = new mongoose.Schema(
 const localSchema = new mongoose.Schema(
   {
     id: {
-      type: Number,
+      type: String,
       required: true
     },
     position: {
@@ -42,7 +60,7 @@ const localSchema = new mongoose.Schema(
 const abonnementSchema = new mongoose.Schema(
   {
     id: {
-      type: Number,
+      type: String,
       required: true
     },
     libelle: {
@@ -64,10 +82,10 @@ const abonnementSchema = new mongoose.Schema(
 
 const boutiqueSchema = new mongoose.Schema(
   {
-    _id: {
-      type: Number,
-      required: true
-    },
+    // _id: {
+    //   type: String,
+    //   required: true
+    // },
     nom: {
       type: String,
       required: true,

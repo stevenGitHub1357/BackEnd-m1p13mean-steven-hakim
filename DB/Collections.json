@@ -181,7 +181,10 @@
         "users": [
             {
             "id_user": 2,
-            "email": "boutique@email.com"
+            "nom": "Testeur",
+            "prenom": "Boutique",
+            "email": "boutique@email.com",
+            "contact": "0330000002"
             }
         ],
         "local": [
