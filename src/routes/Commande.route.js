@@ -28,7 +28,13 @@ router.get("/byId/:id", verifyToken, async (req, res) => {
 // CREATE COMMANDE
 router.post("/create", verifyToken, async (req, res) => {
   try {
-    const newCommande = new Commande(req.body);
+    const userId = req.user.id; // <-- ici tu as l'id du user
+    console.log("ID utilisateur :", userId);
+      const newCommande = new Commande({
+      ...req.body,
+      userId: userId // associe la commande à l'utilisateur
+    });
+
     const savedCommande = await newCommande.save();
     res.status(201).json(savedCommande);
   } catch (error) {
