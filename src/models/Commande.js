@@ -26,14 +26,12 @@ const produitSchema = new mongoose.Schema(
 const commandeSchema = new mongoose.Schema(
   {
     // _id: Number,
-    id_user: Number,
+    id_user: String,
     label: String,
     produits: [produitSchema],
     statut: {
-      type: Number,
-      ref: "CommandeStatut",
-      required: true,
-      default: 1 // statut par défaut ENVOYER
+      id : String,
+      libelle : String
     }
   },
   {

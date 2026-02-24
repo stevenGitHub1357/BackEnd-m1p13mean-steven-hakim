@@ -43,7 +43,7 @@ router.put("/update/:id", verifyToken, async (req, res) => {
       req.params.id,
       req.body,
       { new: true, runValidators: true }
-    );
+    ).populate("statut");
     if (!updatedCommande) return res.status(404).json({ message: "Commande non trouvée" });
     res.json(updatedCommande);
   } catch (error) {
@@ -65,10 +65,7 @@ router.delete("/delete/:id", verifyToken, async (req, res) => {
 // PATCH COMMANDE : CHANGER STATUT
 router.patch("/update/:id/statut", verifyToken, async (req, res) => {
   try {
-    let statutId = Number(req.body.statutId);
-    if (isNaN(statutId)) {
-      return res.status(400).json({ message: "statutId doit être un nombre" });
-    }
+    let statutId = req.body.statutId;
 
     const statut = await CommandeStatut.findById(statutId);
     if (!statut) return res.status(404).json({ message: "Statut invalide" });
