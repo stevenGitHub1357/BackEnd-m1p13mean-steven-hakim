@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const cloudinary = require("../config/cloudinary");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const { verifyToken, authorizeRoles } = require("../auth/middleware")
 
 // Configurer Multer + Cloudinary pour accepter tous les formats
 const storage = new CloudinaryStorage({
@@ -20,7 +21,7 @@ const storage = new CloudinaryStorage({
 const parser = multer({ storage: storage });
 
 // Route pour uploader
-router.post("/", parser.single("file"), async (req, res) => {
+router.post("/", verifyToken, parser.single("file"), async (req, res) => {
   try {
     // req.file contient les infos du fichier uploadé
     res.json({

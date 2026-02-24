@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const { Local, LocalEtat } = require("../models/Local");
+const { verifyToken, authorizeRoles } = require("../auth/middleware")
 
 // ----- ROUTES LOCALS -----
 // GET ALL LOCALS
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   try {
     const locals = await Local.find();
     res.json(locals);
@@ -14,7 +15,7 @@ router.get("/", async (req, res) => {
 });
 
 // GET LOCAL BY ID
-router.get("/byId/:id", async (req, res) => {
+router.get("/byId/:id", verifyToken, async (req, res) => {
   try {
     const local = await Local.findById(req.params.id);
     if (!local) return res.status(404).json({ message: "Local non trouvé" });
@@ -25,7 +26,7 @@ router.get("/byId/:id", async (req, res) => {
 });
 
 // CREATE LOCAL
-router.post("/create", async (req, res) => {
+router.post("/create", verifyToken, async (req, res) => {
   try {
     const newLocal = new Local(req.body);
     const savedLocal = await newLocal.save();
@@ -36,7 +37,7 @@ router.post("/create", async (req, res) => {
 });
 
 // UPDATE LOCAL
-router.put("/update/:id", async (req, res) => {
+router.put("/update/:id", verifyToken, async (req, res) => {
   try {
     const updatedLocal = await Local.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -50,7 +51,7 @@ router.put("/update/:id", async (req, res) => {
 });
 
 // DELETE LOCAL
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedLocal = await Local.findByIdAndDelete(req.params.id);
     if (!deletedLocal) return res.status(404).json({ message: "Local non trouvé" });
@@ -62,7 +63,7 @@ router.delete("/delete/:id", async (req, res) => {
 
 // ----- ROUTES ETATS -----
 // GET ALL ETATS
-router.get("/etats", async (req, res) => {
+router.get("/etats", verifyToken, async (req, res) => {
   try {
     const etats = await LocalEtat.find();
     res.json(etats);
@@ -72,7 +73,7 @@ router.get("/etats", async (req, res) => {
 });
 
 // GET ETAT BY ID
-router.get("/etats/byId/:id", async (req, res) => {
+router.get("/etats/byId/:id", verifyToken, async (req, res) => {
   try {
     const etat = await LocalEtat.findById(req.params.id);
     if (!etat) return res.status(404).json({ message: "Etat non trouvé" });
@@ -83,7 +84,7 @@ router.get("/etats/byId/:id", async (req, res) => {
 });
 
 // CREATE ETAT
-router.post("/etats/create", async (req, res) => {
+router.post("/etats/create", verifyToken, async (req, res) => {
   try {
     const newEtat = new LocalEtat(req.body);
     const savedEtat = await newEtat.save();
@@ -94,7 +95,7 @@ router.post("/etats/create", async (req, res) => {
 });
 
 // UPDATE ETAT
-router.put("/etats/update/:id", async (req, res) => {
+router.put("/etats/update/:id", verifyToken, async (req, res) => {
   try {
     const updatedEtat = await LocalEtat.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -108,7 +109,7 @@ router.put("/etats/update/:id", async (req, res) => {
 });
 
 // DELETE ETAT
-router.delete("/etats/delete/:id", async (req, res) => {
+router.delete("/etats/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedEtat = await LocalEtat.findByIdAndDelete(req.params.id);
     if (!deletedEtat) return res.status(404).json({ message: "Etat non trouvé" });

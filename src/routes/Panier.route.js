@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const Panier = require("../models/Panier");
+const { verifyToken, authorizeRoles } = require("../auth/middleware")
 
 
 // GET ALL PANIERS
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   try {
     const paniers = await Panier.find();
     res.json(paniers);
@@ -15,7 +16,7 @@ router.get("/", async (req, res) => {
 
 
 // GET PANIER BY ID
-router.get("/:id", async (req, res) => {
+router.get("/:id", verifyToken, async (req, res) => {
   try {
     const panier = await Panier.findById(req.params.id);
 
@@ -30,7 +31,7 @@ router.get("/:id", async (req, res) => {
 
 
 // CREATE PANIER
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   try {
     const newPanier = new Panier(req.body);
     const savedPanier = await newPanier.save();
@@ -43,7 +44,7 @@ router.post("/", async (req, res) => {
 
 
 // UPDATE PANIER
-router.put("/:id", async (req, res) => {
+router.put("/:id", verifyToken, async (req, res) => {
   try {
     const updatedPanier = await Panier.findByIdAndUpdate(
       req.params.id,
@@ -62,7 +63,7 @@ router.put("/:id", async (req, res) => {
 
 
 // DELETE PANIER
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   try {
     const deletedPanier = await Panier.findByIdAndDelete(req.params.id);
 
