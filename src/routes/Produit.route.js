@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const { Produit, ProduitEtat, ProduitCategorie } = require("../models/Produit");
+const { verifyToken, authorizeRoles } = require("../auth/middleware")
 
 // ----- ROUTES PRODUITS -----
 // GET ALL PRODUITS
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   try {
     const produits = await Produit.find();
     res.json(produits);
@@ -14,7 +15,7 @@ router.get("/", async (req, res) => {
 });
 
 // GET PRODUIT BY ID
-router.get("/byId/:id", async (req, res) => {
+router.get("/byId/:id", verifyToken, async (req, res) => {
   try {
     const produit = await Produit.findById(req.params.id);
     if (!produit) return res.status(404).json({ message: "Produit non trouvé" });
@@ -25,7 +26,7 @@ router.get("/byId/:id", async (req, res) => {
 });
 
 // CREATE PRODUIT
-router.post("/create", async (req, res) => {
+router.post("/create", verifyToken, async (req, res) => {
   try {
     const newProduit = new Produit(req.body);
     const savedProduit = await newProduit.save();
@@ -36,7 +37,7 @@ router.post("/create", async (req, res) => {
 });
 
 // UPDATE PRODUIT
-router.put("/update/:id", async (req, res) => {
+router.put("/update/:id", verifyToken, async (req, res) => {
   try {
     const updatedProduit = await Produit.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -50,7 +51,7 @@ router.put("/update/:id", async (req, res) => {
 });
 
 // DELETE PRODUIT
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedProduit = await Produit.findByIdAndDelete(req.params.id);
     if (!deletedProduit) return res.status(404).json({ message: "Produit non trouvé" });
@@ -62,7 +63,7 @@ router.delete("/delete/:id", async (req, res) => {
 
 // ----- ROUTES ETATS -----
 // GET ALL ETATS
-router.get("/etats", async (req, res) => {
+router.get("/etats", verifyToken, async (req, res) => {
   try {
     const etats = await ProduitEtat.find();
     res.json(etats);
@@ -72,7 +73,7 @@ router.get("/etats", async (req, res) => {
 });
 
 // CRUD ETATS
-router.get("/etats/byId/:id", async (req, res) => {
+router.get("/etats/byId/:id", verifyToken, async (req, res) => {
   try {
     const etat = await ProduitEtat.findById(req.params.id);
     if (!etat) return res.status(404).json({ message: "Etat non trouvé" });
@@ -82,7 +83,7 @@ router.get("/etats/byId/:id", async (req, res) => {
   }
 });
 
-router.post("/etats/create", async (req, res) => {
+router.post("/etats/create", verifyToken, async (req, res) => {
   try {
     const newEtat = new ProduitEtat(req.body);
     const savedEtat = await newEtat.save();
@@ -92,7 +93,7 @@ router.post("/etats/create", async (req, res) => {
   }
 });
 
-router.put("/etats/update/:id", async (req, res) => {
+router.put("/etats/update/:id", verifyToken, async (req, res) => {
   try {
     const updatedEtat = await ProduitEtat.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -105,7 +106,7 @@ router.put("/etats/update/:id", async (req, res) => {
   }
 });
 
-router.delete("/etats/delete/:id", async (req, res) => {
+router.delete("/etats/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedEtat = await ProduitEtat.findByIdAndDelete(req.params.id);
     if (!deletedEtat) return res.status(404).json({ message: "Etat non trouvé" });
@@ -116,7 +117,7 @@ router.delete("/etats/delete/:id", async (req, res) => {
 });
 
 // ----- ROUTES CATEGORIES -----
-router.get("/categories", async (req, res) => {
+router.get("/categories", verifyToken, async (req, res) => {
   try {
     const categories = await ProduitCategorie.find();
     res.json(categories);
@@ -126,7 +127,7 @@ router.get("/categories", async (req, res) => {
 });
 
 // CRUD CATEGORIES
-router.get("/categories/byId/:id", async (req, res) => {
+router.get("/categories/byId/:id", verifyToken, async (req, res) => {
   try {
     const categorie = await ProduitCategorie.findById(req.params.id);
     if (!categorie) return res.status(404).json({ message: "Categorie non trouvé" });
@@ -136,7 +137,7 @@ router.get("/categories/byId/:id", async (req, res) => {
   }
 });
 
-router.post("/categories/create", async (req, res) => {
+router.post("/categories/create", verifyToken, async (req, res) => {
   try {
     const newCategorie = new ProduitCategorie(req.body);
     const savedCategorie = await newCategorie.save();
@@ -146,7 +147,7 @@ router.post("/categories/create", async (req, res) => {
   }
 });
 
-router.put("/categories/update/:id", async (req, res) => {
+router.put("/categories/update/:id", verifyToken, async (req, res) => {
   try {
     const updatedCategorie = await ProduitCategorie.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -159,7 +160,7 @@ router.put("/categories/update/:id", async (req, res) => {
   }
 });
 
-router.delete("/categories/delete/:id", async (req, res) => {
+router.delete("/categories/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedCategorie = await ProduitCategorie.findByIdAndDelete(req.params.id);
     if (!deletedCategorie) return res.status(404).json({ message: "Categorie non trouvé" });

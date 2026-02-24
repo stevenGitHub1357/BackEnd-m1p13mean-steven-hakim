@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const { Commande, CommandeStatut } = require("../models/Commande");
+const { verifyToken, authorizeRoles } = require("../auth/middleware")
 
 // ----- ROUTES COMMANDES -----
 // GET ALL COMMANDES
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   try {
     const commandes = await Commande.find().populate("statut");
     res.json(commandes);
@@ -14,7 +15,7 @@ router.get("/", async (req, res) => {
 });
 
 // GET COMMANDE BY ID
-router.get("/byId/:id", async (req, res) => {
+router.get("/byId/:id", verifyToken, async (req, res) => {
   try {
     const commande = await Commande.findById(req.params.id).populate("statut");
     if (!commande) return res.status(404).json({ message: "Commande non trouvée" });
@@ -25,7 +26,7 @@ router.get("/byId/:id", async (req, res) => {
 });
 
 // CREATE COMMANDE
-router.post("/create", async (req, res) => {
+router.post("/create", verifyToken, async (req, res) => {
   try {
     const newCommande = new Commande(req.body);
     const savedCommande = await newCommande.save();
@@ -36,7 +37,7 @@ router.post("/create", async (req, res) => {
 });
 
 // UPDATE COMMANDE
-router.put("/update/:id", async (req, res) => {
+router.put("/update/:id", verifyToken, async (req, res) => {
   try {
     const updatedCommande = await Commande.findByIdAndUpdate(
       req.params.id,
@@ -51,7 +52,7 @@ router.put("/update/:id", async (req, res) => {
 });
 
 // DELETE COMMANDE
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedCommande = await Commande.findByIdAndDelete(req.params.id);
     if (!deletedCommande) return res.status(404).json({ message: "Commande non trouvée" });
@@ -62,7 +63,7 @@ router.delete("/delete/:id", async (req, res) => {
 });
 
 // PATCH COMMANDE : CHANGER STATUT
-router.patch("/update/:id/statut", async (req, res) => {
+router.patch("/update/:id/statut", verifyToken, async (req, res) => {
   try {
     let statutId = Number(req.body.statutId);
     if (isNaN(statutId)) {
@@ -89,7 +90,7 @@ router.patch("/update/:id/statut", async (req, res) => {
 
 // ----- ROUTES STATUTS -----
 // GET ALL STATUTS
-router.get("/statuts", async (req, res) => {
+router.get("/statuts", verifyToken, async (req, res) => {
   try {
     const statuts = await CommandeStatut.find();
     res.json(statuts);
@@ -99,7 +100,7 @@ router.get("/statuts", async (req, res) => {
 });
 
 // GET STATUT BY ID
-router.get("/statuts/byId/:id", async (req, res) => {
+router.get("/statuts/byId/:id", verifyToken, async (req, res) => {
   try {
     const statut = await CommandeStatut.findById(req.params.id);
     if (!statut) return res.status(404).json({ message: "Statut non trouvé" });
@@ -110,7 +111,7 @@ router.get("/statuts/byId/:id", async (req, res) => {
 });
 
 // CREATE STATUT
-router.post("/statuts/create", async (req, res) => {
+router.post("/statuts/create", verifyToken, async (req, res) => {
   try {
     const newStatut = new CommandeStatut(req.body);
     const savedStatut = await newStatut.save();
@@ -121,7 +122,7 @@ router.post("/statuts/create", async (req, res) => {
 });
 
 // UPDATE STATUT
-router.put("/statuts/update/:id", async (req, res) => {
+router.put("/statuts/update/:id", verifyToken, async (req, res) => {
   try {
     const updatedStatut = await CommandeStatut.findByIdAndUpdate(
       req.params.id,
@@ -136,7 +137,7 @@ router.put("/statuts/update/:id", async (req, res) => {
 });
 
 // DELETE STATUT
-router.delete("/statuts/delete/:id", async (req, res) => {
+router.delete("/statuts/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedStatut = await CommandeStatut.findByIdAndDelete(req.params.id);
     if (!deletedStatut) return res.status(404).json({ message: "Statut non trouvé" });

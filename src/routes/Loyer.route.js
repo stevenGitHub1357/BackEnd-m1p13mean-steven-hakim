@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const Loyer = require("../models/Loyer");
+const { verifyToken, authorizeRoles } = require("../auth/middleware")
 
 
 // GET ALL LOYERS
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   try {
     const loyers = await Loyer.find();
     res.json(loyers);
@@ -15,7 +16,7 @@ router.get("/", async (req, res) => {
 
 
 // GET LOYER BY ID
-router.get("/:id", async (req, res) => {
+router.get("/:id", verifyToken, async (req, res) => {
   try {
     const loyer = await Loyer.findById(req.params.id);
 
@@ -30,7 +31,7 @@ router.get("/:id", async (req, res) => {
 
 
 // CREATE LOYER
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   try {
     const newLoyer = new Loyer(req.body);
     const savedLoyer = await newLoyer.save();
@@ -43,7 +44,7 @@ router.post("/", async (req, res) => {
 
 
 // UPDATE LOYER
-router.put("/:id", async (req, res) => {
+router.put("/:id", verifyToken, async (req, res) => {
   try {
     const updatedLoyer = await Loyer.findByIdAndUpdate(
       req.params.id,
@@ -62,7 +63,7 @@ router.put("/:id", async (req, res) => {
 
 
 // DELETE LOYER
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   try {
     const deletedLoyer = await Loyer.findByIdAndDelete(req.params.id);
 
