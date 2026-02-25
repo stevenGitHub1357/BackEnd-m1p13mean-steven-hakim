@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Commande, CommandeStatut } = require("../models/Commande");
-const { verifyToken, authorizeRoles } = require("../auth/middleware")
+const { verifyToken, authorizeRoles } = require("../auth/middleware");
 
 // ----- ROUTES COMMANDES -----
 // GET ALL COMMANDES
@@ -18,7 +18,8 @@ router.get("/", verifyToken, async (req, res) => {
 router.get("/byId/:id", verifyToken, async (req, res) => {
   try {
     const commande = await Commande.findById(req.params.id).populate("statut");
-    if (!commande) return res.status(404).json({ message: "Commande non trouvée" });
+    if (!commande)
+      return res.status(404).json({ message: "Commande non trouvée" });
     res.json(commande);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -28,10 +29,20 @@ router.get("/byId/:id", verifyToken, async (req, res) => {
 // CREATE COMMANDE
 router.post("/create", verifyToken, async (req, res) => {
   try {
-    const newCommande = new Commande(req.body);
+    console.log("BODY REÇU :", req.body);
+    console.log("USER :", req.user);
+
+    const userId = req.user.id;
+
+    const newCommande = new Commande({
+      ...req.body,
+      userId: userId,
+    });
+
     const savedCommande = await newCommande.save();
     res.status(201).json(savedCommande);
   } catch (error) {
+    console.error("ERREUR BACK :", error);
     res.status(400).json({ message: error.message });
   }
 });
@@ -42,9 +53,10 @@ router.put("/update/:id", verifyToken, async (req, res) => {
     const updatedCommande = await Commande.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     ).populate("statut");
-    if (!updatedCommande) return res.status(404).json({ message: "Commande non trouvée" });
+    if (!updatedCommande)
+      return res.status(404).json({ message: "Commande non trouvée" });
     res.json(updatedCommande);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -55,7 +67,8 @@ router.put("/update/:id", verifyToken, async (req, res) => {
 router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedCommande = await Commande.findByIdAndDelete(req.params.id);
-    if (!deletedCommande) return res.status(404).json({ message: "Commande non trouvée" });
+    if (!deletedCommande)
+      return res.status(404).json({ message: "Commande non trouvée" });
     res.json({ message: "Commande supprimée", deletedCommande });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -73,7 +86,7 @@ router.patch("/update/:id/statut", verifyToken, async (req, res) => {
     const updatedCommande = await Commande.findByIdAndUpdate(
       req.params.id,
       { statut: statutId },
-      { new: true }
+      { new: true },
     );
 
     if (!updatedCommande)
@@ -124,9 +137,10 @@ router.put("/statuts/update/:id", verifyToken, async (req, res) => {
     const updatedStatut = await CommandeStatut.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
-    if (!updatedStatut) return res.status(404).json({ message: "Statut non trouvé" });
+    if (!updatedStatut)
+      return res.status(404).json({ message: "Statut non trouvé" });
     res.json(updatedStatut);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -137,7 +151,8 @@ router.put("/statuts/update/:id", verifyToken, async (req, res) => {
 router.delete("/statuts/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedStatut = await CommandeStatut.findByIdAndDelete(req.params.id);
-    if (!deletedStatut) return res.status(404).json({ message: "Statut non trouvé" });
+    if (!deletedStatut)
+      return res.status(404).json({ message: "Statut non trouvé" });
     res.json({ message: "Statut supprimé", deletedStatut });
   } catch (error) {
     res.status(500).json({ message: error.message });
