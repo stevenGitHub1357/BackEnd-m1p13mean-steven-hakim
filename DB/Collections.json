@@ -263,8 +263,8 @@
     ],
     "loyers": [
         {
-        "_id": 1,
-        "id_boutique": 1,
+        "_id": "1",
+        "id_boutique": "1",
         "montant": 300000,
         "montant_payer": 300000,
         "mois": 2,
@@ -293,7 +293,7 @@
         "produits": [
             { "id": 100, "nom": "Samsung S26 Ultra", "qte": 2, "duree": 60 }
         ],
-        "statut": { "_id": 1, "libelle": "ENVOYER" },
+        "statut": { "id": 1, "libelle": "ENVOYER" },
         "date_creation": "2026-02-12T00:00:00Z",
         "date_update": "2026-02-12T00:00:00Z"
         }
