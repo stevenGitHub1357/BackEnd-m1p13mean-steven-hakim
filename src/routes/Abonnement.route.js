@@ -16,7 +16,7 @@ router.get("/", verifyToken, async (req, res) => {
 
 
 // GET ABONNEMENT BY ID
-router.get("/:id", verifyToken, async (req, res) => {
+router.get("/ById/:id", verifyToken, async (req, res) => {
   try {
     const abonnement = await Abonnement.findById(req.params.id);
 
@@ -31,7 +31,7 @@ router.get("/:id", verifyToken, async (req, res) => {
 
 
 // CREATE ABONNEMENT
-router.post("/", verifyToken, async (req, res) => {
+router.post("/create", verifyToken, async (req, res) => {
   try {
     const newAbonnement = new Abonnement(req.body);
     const savedAbonnement = await newAbonnement.save();
@@ -44,7 +44,7 @@ router.post("/", verifyToken, async (req, res) => {
 
 
 // UPDATE ABONNEMENT
-router.put("/:id", verifyToken, async (req, res) => {
+router.put("/update/:id", verifyToken, async (req, res) => {
   try {
     const updatedAbonnement = await Abonnement.findByIdAndUpdate(
       req.params.id,
@@ -63,7 +63,7 @@ router.put("/:id", verifyToken, async (req, res) => {
 
 
 // DELETE ABONNEMENT
-router.delete("/:id", verifyToken, async (req, res) => {
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedAbonnement = await Abonnement.findByIdAndDelete(req.params.id);
 

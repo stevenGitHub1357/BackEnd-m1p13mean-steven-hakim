@@ -23,10 +23,24 @@ const produitSchema = new mongoose.Schema(
   { _id: false }
 );
 
+const userSchema = new mongoose.Schema(
+  {
+    id: String,
+    nom: String,
+    prenom: String,
+    email: String,
+    contact: String,
+  },
+  { _id: false }
+);
+
 const commandeSchema = new mongoose.Schema(
   {
     // _id: Number,
     id_user: String,
+    user: {
+      type: userSchema
+    },
     label: String,
     produits: [produitSchema],
     statut: {

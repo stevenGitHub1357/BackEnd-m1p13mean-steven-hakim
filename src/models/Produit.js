@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 // ======= MODELE PRODUIT ETAT =======
 const produitEtatSchema = new mongoose.Schema(
   {
-    _id: { type: String, required: true },
+    // _id: { type: String, required: true },
     libelle: { type: String, required: true, uppercase: true, trim: true }
   },
   { timestamps: { createdAt: "date_creation", updatedAt: "date_update" } }
@@ -18,7 +18,7 @@ const produitCategorieSchema = new mongoose.Schema(
     label: { type: String, required: true, trim: true },
     description: { type: String, trim: true },
     base: {
-      id: Number,
+      id: String,
       label: String
     }
   },
@@ -71,16 +71,27 @@ const categorieSchema = new mongoose.Schema(
 
 const etatSchema = new mongoose.Schema(
   {
-    // _id: String,
+    id: String,
     libelle: String
   },
   { _id: false }
 );
 
+const boutiqueSchema = new mongoose.Schema(
+  {
+    id: String,
+    nom: String,
+    description: String,
+    logo: String,
+  },
+  { _id: false }
+);
+
+
 const produitSchema = new mongoose.Schema(
   {
     // _id: String,
-    id_boutique: Number,
+    id_boutique: String,
     label: String,
     description: String,
     qte: Number,
@@ -89,6 +100,7 @@ const produitSchema = new mongoose.Schema(
     solde: [soldeSchema],
     categories: [categorieSchema],
     etat: etatSchema,
+    boutique: boutiqueSchema,
     duree_panier: Number
   },
   {

@@ -31,7 +31,7 @@ router.get("/:id", verifyToken, async (req, res) => {
 
 
 // CREATE BOUTIQUE
-router.post("/", verifyToken, async (req, res) => {
+router.post("/create", verifyToken, async (req, res) => {
   try {
     const newBoutique = new Boutique(req.body);
     const savedBoutique = await newBoutique.save();
@@ -44,7 +44,7 @@ router.post("/", verifyToken, async (req, res) => {
 
 
 // UPDATE BOUTIQUE
-router.put("/:id", verifyToken, async (req, res) => {
+router.put("/update/:id", verifyToken, async (req, res) => {
   try {
     const updatedBoutique = await Boutique.findByIdAndUpdate(
       req.params.id,
@@ -63,7 +63,7 @@ router.put("/:id", verifyToken, async (req, res) => {
 
 
 // DELETE BOUTIQUE
-router.delete("/:id", verifyToken, async (req, res) => {
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedBoutique = await Boutique.findByIdAndDelete(req.params.id);
 

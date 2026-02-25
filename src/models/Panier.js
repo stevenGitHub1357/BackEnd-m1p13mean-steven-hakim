@@ -8,7 +8,6 @@ const produitSchema = new mongoose.Schema(
     },
     nom: {
       type: String,
-      required: true,
       trim: true
     },
     qte: {
@@ -18,9 +17,19 @@ const produitSchema = new mongoose.Schema(
     },
     duree: {
       type: Number,
-      required: true,
       min: 1
     }
+  },
+  { _id: false }
+);
+
+const userSchema = new mongoose.Schema(
+  {
+    id: String,
+    nom: String,
+    prenom: String,
+    email: String,
+    contact: String,
   },
   { _id: false }
 );
@@ -32,8 +41,11 @@ const panierSchema = new mongoose.Schema(
     //   required: true
     // },
     id_user: {
-      type: Number,
+      type: String,
       required: true
+    },
+    user: {
+      type: userSchema
     },
     label: {
       type: String,
@@ -53,4 +65,4 @@ const panierSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Panier", panierSchema);
+module.exports = mongoose.model("Panier", panierSchema, 'paniers');

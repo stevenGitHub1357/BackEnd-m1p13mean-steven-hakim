@@ -1,7 +1,6 @@
 {
     "users": [
       {
-        "_id": 1,
         "nom": "Testeur",
         "prenom": "Admin",
         "password": "admin",
@@ -15,7 +14,6 @@
         "date_update": "2026-02-12T00:00:00Z"
       },
       {
-        "_id": 2,
         "nom": "Testeur",
         "prenom": "Boutique",
         "email": "boutique@email.com",
@@ -29,7 +27,6 @@
         "date_update": "2026-02-12T00:00:00Z"
       },
       {
-        "_id": 3,
         "nom": "Testeur",
         "prenom": "Client",
         "email": "client@email.com",
@@ -46,19 +43,19 @@
 
     "users_role": [
       {
-        "_id": 1,
+        "id": "1",
         "label": "ADMIN",
         "description": "Administrateur du système",
         "priorite": 1
       },
       {
-        "_id": 2,
+        "id": "2",
         "label": "BOUTIQUE",
         "description": "Gerant de boutique",
         "priorite": 10
       },
       {
-        "_id": 3,
+        "id": "3",
         "label": "CLIENT",
         "description": "Client du centre commercial",
         "priorite": 100
@@ -71,7 +68,6 @@
 
     "locals": [
       {
-        "_id": 1,
         "taille": 10,
         "position": "Bloc A - 01",
         "loyer": [
@@ -81,12 +77,11 @@
           }
         ],
         "etat": {
-          "id": 1,
+          "id": "699ecaf6dc2d942267207bfa",
           "libelle": "LIBRE"
         }
       },
       {
-        "_id": 2,
         "taille": 20,
         "position": "Bloc A - 02",
         "loyer": [
@@ -96,12 +91,11 @@
           }
         ],
         "etat": {
-          "id": 2,
+          "id": "699ecaf6dc2d942267207bfa",
           "libelle": "OCCUPE"
         }
       },
       {
-        "_id": 3,
         "taille": 100,
         "position": "Bloc A - 03",
         "loyer": [
@@ -111,7 +105,7 @@
           }
         ],
         "etat": {
-          "id": 1,
+          "id": "699ecb4ba0a24330031b203e",
           "libelle": "LIBRE"
         }
       }
@@ -119,15 +113,15 @@
 
     "locals_etat": [
       {
-        "_id": 1,
+        "id": 1,
         "libelle": "LIBRE"
       },
       {
-        "_id": 2,
+        "id": 2,
         "libelle": "OCCUPE"
       },
       {
-        "_id": 3,
+        "id": 3,
         "libelle": "RESERVE"
       }
     ],
@@ -138,7 +132,6 @@
 
     "abonnements": [
       {
-        "_id": 1,
         "label": "Premium",
         "prix": [
           {
@@ -152,7 +145,6 @@
         "date_update": "2026-02-12T00:00:00Z"
       },
       {
-        "_id": 2,
         "label": "Gold",
         "prix": [
           {
@@ -166,7 +158,6 @@
         "date_update": "2026-02-12T00:00:00Z"
       },
       {
-        "_id": 3,
         "label": "Silver",
         "prix": [
           {
@@ -186,14 +177,13 @@
 
     "boutiques": [
         {
-        "_id": 1,
         "nom": "Boutique ABC",
         "description": "Vente de vêtements",
         "logo": "logoABC.png",
         "fond": "fondABC.png",
         "users": [
             {
-            "id_user": 2,
+            "id_user": "699eca169b4891705ba3ff57",
             "nom": "Testeur",
             "prenom": "Boutique",
             "email": "boutique@email.com",
@@ -202,7 +192,7 @@
         ],
         "local": [
             {
-            "id": 2,
+            "id": "699ecaf6dc2d942267207bfa",
             "position": "Bloc A - 02",
             "loyer": 300000,
             "date": "2026-02-12T00:00:00Z"
@@ -210,7 +200,7 @@
         ],
         "abonnement": [
             {
-            "id": 1,
+            "id": "699ecc91da0266819afcda0d",
             "libelle": "Premium",
             "montant": 100000,
             "date": "2026-02-12T00:00:00Z"
@@ -227,8 +217,13 @@
 
     "produits": [
         {
-        "_id": 1,
-        "id_boutique": 1,
+        "id_boutique": "699ecd958404a1e72764c4d8",
+        "boutique" : {
+          "id": "699ecd958404a1e72764c4d8",
+          "nom": "Boutique ABC",
+          "description": "Vente de vêtements",
+          "logo": "url/logoABC.png"
+        },
         "label": "Samsung S26 Ultra",
         "description": "Telephone premium de Samsung en 2026",
         "qte": 100,
@@ -249,9 +244,9 @@
             { "debut": "2025-02-10T00:00:00Z", "fin": "2025-02-20T00:00:00Z", "pourcentage": 10 }
         ],
         "categories": [
-            { "id": 100, "label": "Telephone" }
+            { "id": "699ecf60c94469efc0752280", "label": "Telephone" }
         ],
-        "etat": { "_id": 1, "libelle": "AFFICHER" },
+        "etat": { "id": "699ecdf4793be7d30ab23aa9", "libelle": "AFFICHER" },
         "duree_panier": 60,
         "date_creation": "2026-02-12T00:00:00Z",
         "date_update": "2026-02-12T00:00:00Z"
@@ -260,15 +255,15 @@
 
 
     "produits_etat": [
-        { "_id": 1, "libelle": "AFFICHER" },
-        { "_id": 2, "libelle": "CACHER" }
+        {"libelle": "AFFICHER" },
+        {"libelle": "CACHER" }
     ],
 
 
     "produits_categorie": [
-        { "_id": 1, "label": "Sans-cetegorie", "description": "Tous produits sans categorie", "base": null },
-        { "_id": 10, "label": "High tech", "description": "Tous produits High tech", "base": null },
-        { "_id": 100, "label": "Telephone", "description": "Tous types de telephone", "base": { "id": 10, "label": "High tech" } }
+        {"label": "Sans-cetegorie", "description": "Tous produits sans categorie", "base": null },
+        {"label": "High tech", "description": "Tous produits High tech", "base": null },
+        {"label": "Telephone", "description": "Tous types de telephone", "base": { "id": "699ecf43a88e6249cff7c0ba", "label": "High tech" } }
     ],
 
 
@@ -277,9 +272,9 @@
 
     "stocks": [
         {
-        "_id": 1,
-        "id_produit": 1,
-        "type": { "id": 1, "label": "ENTREE" },
+        "id_produit": "699ecfa63eef12a60207352c",
+        "type": { "id": "699ecfeb4ee310f92e3aa5f9", "label": "ENTREE" },
+        "qte" : 100,
         "date_creation": "2026-02-12T00:00:00Z",
         "date_update": "2026-02-12T00:00:00Z"
         }
@@ -287,8 +282,8 @@
 
 
     "stocks_type": [
-        { "_id": 1, "libelle": "ENTREE" },
-        { "_id": 2, "libelle": "SORTIE" }
+        {"libelle": "ENTREE" },
+        {"libelle": "SORTIE" }
     ],
 
 
@@ -298,8 +293,13 @@
 
     "loyers": [
         {
-        "_id": "1",
-        "id_boutique": "1",
+        "id_boutique": "699ecd958404a1e72764c4d8",
+        "boutique" : {
+          "id": "699ecd958404a1e72764c4d8",
+          "nom": "Boutique ABC",
+          "description": "Vente de vêtements",
+          "logo": "url/logoABC.png"
+        },
         "montant": 300000,
         "montant_payer": 300000,
         "mois": 2,
@@ -315,11 +315,17 @@
 
     "paniers": [
         {
-        "_id": 1,
-        "id_user": 1,
-        "labele": "Panier de produit electronic",
+        "id_user": "699eca069b4891705ba3ff55",
+        "user": {
+          "id": "699eca069b4891705ba3ff55",
+          "nom": "Testeur",
+          "prenom": "Admin",
+          "email": "admin@email.com",
+          "contact": "0300000001"
+        },
+        "label": "Panier de produit electronic",
         "produits": [
-            { "id": 100, "nom": "Samsung S26 Ultra", "qte": 2, "duree": 60 }
+            { "id": "699ec5dfbeec136e78e2b11c", "nom": "Samsung S26 Ultra", "qte": 2, "duree": 60 }
         ],
         "date_creation": "2026-02-12T00:00:00Z",
         "date_update": "2026-02-12T00:00:00Z"
@@ -332,13 +338,19 @@
 
     "commandes": [
         {
-        "_id": 1,
-        "id_user": 1,
-        "labele": "Commande d'utilisateur",
+        "id_user": "699eca069b4891705ba3ff55",
+        "user": {
+          "id": "699eca069b4891705ba3ff55",
+          "nom": "Testeur",
+          "prenom": "Admin",
+          "email": "admin@email.com",
+          "contact": "0300000001"
+        },
+        "label": "Commande d'utilisateur",
         "produits": [
-            { "id": 100, "nom": "Samsung S26 Ultra", "qte": 2, "duree": 60 }
+            { "id": "699ec5dfbeec136e78e2b11c", "nom": "Samsung S26 Ultra", "qte": 2, "duree": 60 }
         ],
-        "statut": { "id": 1, "libelle": "ENVOYER" },
+        "statut": { "id": "699ed37a17769b1f2db2714d", "libelle": "ENVOYER" },
         "date_creation": "2026-02-12T00:00:00Z",
         "date_update": "2026-02-12T00:00:00Z"
         }
@@ -349,9 +361,9 @@
 
     
     "commandes_statut": [
-        { "_id": 1, "libelle": "ENVOYER" },
-        { "_id": 2, "libelle": "VALIDER" },
-        { "_id": 3, "libelle": "ANNULER" }
+        {"libelle": "ENVOYER" },
+        {"libelle": "VALIDER" },
+        {"libelle": "ANNULER" }
     ]
 
 

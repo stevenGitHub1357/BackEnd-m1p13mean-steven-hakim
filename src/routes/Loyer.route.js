@@ -16,7 +16,7 @@ router.get("/", verifyToken, async (req, res) => {
 
 
 // GET LOYER BY ID
-router.get("/:id", verifyToken, async (req, res) => {
+router.get("/ById/:id", verifyToken, async (req, res) => {
   try {
     const loyer = await Loyer.findById(req.params.id);
 
@@ -31,7 +31,7 @@ router.get("/:id", verifyToken, async (req, res) => {
 
 
 // CREATE LOYER
-router.post("/", verifyToken, async (req, res) => {
+router.post("/create/", verifyToken, async (req, res) => {
   try {
     const newLoyer = new Loyer(req.body);
     const savedLoyer = await newLoyer.save();
@@ -44,7 +44,7 @@ router.post("/", verifyToken, async (req, res) => {
 
 
 // UPDATE LOYER
-router.put("/:id", verifyToken, async (req, res) => {
+router.put("/update/:id", verifyToken, async (req, res) => {
   try {
     const updatedLoyer = await Loyer.findByIdAndUpdate(
       req.params.id,
@@ -63,7 +63,7 @@ router.put("/:id", verifyToken, async (req, res) => {
 
 
 // DELETE LOYER
-router.delete("/:id", verifyToken, async (req, res) => {
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedLoyer = await Loyer.findByIdAndDelete(req.params.id);
 

@@ -25,8 +25,9 @@ const typeSchema = new mongoose.Schema(
 const stockSchema = new mongoose.Schema(
   {
     // _id: Number,
-    id_produit: Number,
-    type: typeSchema
+    id_produit: String,
+    type: typeSchema,
+    qte: Number
   },
   {
     timestamps: {

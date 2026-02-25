@@ -14,6 +14,7 @@ const localRoutes = require("./routes/Local.route")
 const loyerRoutes = require("./routes/Loyer.route")
 const boutiqueRoutes = require("./routes/Boutique.route")
 const abonnementRoutes = require("./routes/Abonnement.route")
+const panierRoutes = require("./routes/Panier.route")
 const authRoutes = require("./auth/auth.route")
 
 const app = express();
@@ -39,6 +40,7 @@ app.use("/locals", localRoutes);
 app.use("/loyers", loyerRoutes);
 app.use("/boutiques", boutiqueRoutes);
 app.use("/abonnements", abonnementRoutes);
+app.use("/paniers", panierRoutes);
 
 // Serveur
 const PORT = process.env.PORT || 3000;

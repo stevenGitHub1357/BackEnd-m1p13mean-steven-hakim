@@ -1,5 +1,15 @@
 const mongoose = require("mongoose");
 
+const boutiqueSchema = new mongoose.Schema(
+  {
+    id: String,
+    nom: String,
+    description: String,
+    logo: String,
+  },
+  { _id: false }
+);
+
 const loyerSchema = new mongoose.Schema(
   {
     // _id: {
@@ -7,7 +17,7 @@ const loyerSchema = new mongoose.Schema(
     //   required: true
     // },
     id_boutique: {
-      type: Number,
+      type: String,
       required: true
     },
     montant: {
@@ -30,7 +40,8 @@ const loyerSchema = new mongoose.Schema(
       type: Number,
       required: true,
       min: 2000
-    }
+    },
+    boutique: boutiqueSchema,
   },
   {
     timestamps: {

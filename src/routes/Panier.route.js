@@ -16,7 +16,7 @@ router.get("/", verifyToken, async (req, res) => {
 
 
 // GET PANIER BY ID
-router.get("/:id", verifyToken, async (req, res) => {
+router.get("/ById/:id", verifyToken, async (req, res) => {
   try {
     const panier = await Panier.findById(req.params.id);
 
@@ -31,7 +31,7 @@ router.get("/:id", verifyToken, async (req, res) => {
 
 
 // CREATE PANIER
-router.post("/", verifyToken, async (req, res) => {
+router.post("/create", verifyToken, async (req, res) => {
   try {
     const newPanier = new Panier(req.body);
     const savedPanier = await newPanier.save();
@@ -44,7 +44,7 @@ router.post("/", verifyToken, async (req, res) => {
 
 
 // UPDATE PANIER
-router.put("/:id", verifyToken, async (req, res) => {
+router.put("/update/:id", verifyToken, async (req, res) => {
   try {
     const updatedPanier = await Panier.findByIdAndUpdate(
       req.params.id,
@@ -63,7 +63,7 @@ router.put("/:id", verifyToken, async (req, res) => {
 
 
 // DELETE PANIER
-router.delete("/:id", verifyToken, async (req, res) => {
+router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedPanier = await Panier.findByIdAndDelete(req.params.id);
 
