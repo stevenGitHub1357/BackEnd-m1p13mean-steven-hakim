@@ -61,11 +61,6 @@
         "priorite": 100
       }
     ],
-
-
-
-
-
     "locals": [
       {
         "taille": 10,
@@ -126,10 +121,6 @@
       }
     ],
 
-
-
-
-
     "abonnements": [
       {
         "label": "Premium",
@@ -171,10 +162,6 @@
         "date_update": "2026-02-12T00:00:00Z"
       }
     ],
-
-
-
-
     "boutiques": [
         {
         "nom": "Boutique ABC",
@@ -210,11 +197,6 @@
         "date_update": "2026-02-12T00:00:00Z"
         }
     ],
-
-
-
-
-
     "produits": [
         {
         "id_boutique": "699ecd958404a1e72764c4d8",
@@ -252,24 +234,15 @@
         "date_update": "2026-02-12T00:00:00Z"
         }
     ],
-
-
     "produits_etat": [
         {"libelle": "AFFICHER" },
         {"libelle": "CACHER" }
     ],
-
-
     "produits_categorie": [
         {"label": "Sans-cetegorie", "description": "Tous produits sans categorie", "base": null },
         {"label": "High tech", "description": "Tous produits High tech", "base": null },
         {"label": "Telephone", "description": "Tous types de telephone", "base": { "id": "699ecf43a88e6249cff7c0ba", "label": "High tech" } }
     ],
-
-
-
-
-
     "stocks": [
         {
         "id_produit": "699ecfa63eef12a60207352c",
@@ -279,18 +252,10 @@
         "date_update": "2026-02-12T00:00:00Z"
         }
     ],
-
-
     "stocks_type": [
         {"libelle": "ENTREE" },
         {"libelle": "SORTIE" }
     ],
-
-
-
-
-
-
     "loyers": [
         {
         "id_boutique": "699ecd958404a1e72764c4d8",
@@ -308,11 +273,6 @@
         "date_update": "2026-02-12T00:00:00Z"
         }
     ],
-
-
-
-
-
     "paniers": [
         {
         "id_user": "699eca069b4891705ba3ff55",
@@ -331,11 +291,6 @@
         "date_update": "2026-02-12T00:00:00Z"
         }
     ],
-
-
-
-
-
     "commandes": [
         {
         "id_user": "699eca069b4891705ba3ff55",
@@ -356,10 +311,6 @@
         }
     ],
 
-
-
-
-    
     "commandes_statut": [
         {"libelle": "ENVOYER" },
         {"libelle": "VALIDER" },
