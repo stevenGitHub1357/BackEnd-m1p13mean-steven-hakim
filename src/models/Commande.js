@@ -4,13 +4,17 @@ const mongoose = require("mongoose");
 const commandeStatutSchema = new mongoose.Schema(
   {
     // _id: { type: String, required: true },
-    libelle: { type: String, required: true, uppercase: true, trim: true }
+    libelle: { type: String, required: true, uppercase: true, trim: true },
   },
-  { timestamps: { createdAt: "date_creation", updatedAt: "date_update" } }
+  { timestamps: { createdAt: "date_creation", updatedAt: "date_update" } },
 );
 
 // Nom exact de la collection MongoDB : commandes_statut
-const CommandeStatut = mongoose.model("CommandeStatut", commandeStatutSchema, "commandes_statut");
+const CommandeStatut = mongoose.model(
+  "CommandeStatut",
+  commandeStatutSchema,
+  "commandes_statut",
+);
 
 // ======= MODELE COMMANDE =======
 const produitSchema = new mongoose.Schema(
@@ -18,9 +22,10 @@ const produitSchema = new mongoose.Schema(
     id: String,
     nom: String,
     qte: Number,
-    duree: Number
+    duree: Number,
+    prix: Number,
   },
-  { _id: false }
+  { _id: false },
 );
 
 const userSchema = new mongoose.Schema(
@@ -31,7 +36,7 @@ const userSchema = new mongoose.Schema(
     email: String,
     contact: String,
   },
-  { _id: false }
+  { _id: false },
 );
 
 const commandeSchema = new mongoose.Schema(
@@ -39,21 +44,21 @@ const commandeSchema = new mongoose.Schema(
     // _id: Number,
     id_user: String,
     user: {
-      type: userSchema
+      type: userSchema,
     },
     label: String,
     produits: [produitSchema],
     statut: {
-      id : String,
-      libelle : String
-    }
+      id: String,
+      libelle: String,
+    },
   },
   {
     timestamps: {
       createdAt: "date_creation",
-      updatedAt: "date_update"
-    }
-  }
+      updatedAt: "date_update",
+    },
+  },
 );
 
 // Nom exact de la collection MongoDB : commandes

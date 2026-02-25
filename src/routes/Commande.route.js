@@ -31,12 +31,14 @@ router.post("/create", verifyToken, async (req, res) => {
   try {
     console.log("BODY REÇU :", req.body);
     console.log("USER :", req.user);
-
-    const userId = req.user.id;
-
+    const statutParDefaut = await CommandeStatut.findOne({
+      libelle: "ENVOYER",
+    });
     const newCommande = new Commande({
-      ...req.body,
-      userId: userId,
+      id_user: req.user.id,
+      label: req.body.label,
+      produits: req.body.produits,
+      statut: statutParDefaut,
     });
 
     const savedCommande = await newCommande.save();
@@ -46,7 +48,17 @@ router.post("/create", verifyToken, async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-
+// MES COMMANDES
+router.get("/mes-commandes", verifyToken, async (req, res) => {
+  try {
+    const commandes = await Commande.find({ id_user: req.user.id })
+      .populate("statut", "libelle")
+      .sort({ date_creation: -1 });
+    res.json(commandes);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 // UPDATE COMMANDE
 router.put("/update/:id", verifyToken, async (req, res) => {
   try {
