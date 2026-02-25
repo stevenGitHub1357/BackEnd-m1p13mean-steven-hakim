@@ -30,7 +30,8 @@ router.get("/byId/:id", verifyToken, async (req, res) => {
 router.post("/create", verifyToken, async (req, res) => {
   try {
     const userId = req.user.id;
-    console.log("ID utilisateur :", userId);
+   console.log("BODY REÇU :", req.body);
+    console.log("USER :", req.user);
     const newCommande = new Commande({
       ...req.body,
       userId: userId,
