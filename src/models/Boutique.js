@@ -63,7 +63,7 @@ const abonnementSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    libelle: {
+    label: {
       type: String,
       required: true,
       trim: true
@@ -72,9 +72,36 @@ const abonnementSchema = new mongoose.Schema(
       type: Number,
       required: true
     },
+    montant: {
+      type: String,
+      required: true
+    },
+    duree: {
+      type: String,
+      required: true
+    },
+    priorite: {
+      type: String,
+      required: true
+    },
     date: {
       type: Date,
       required: true
+    }
+  },
+  { _id: false }
+);
+
+const etatSchema = new mongoose.Schema(
+  {
+    id: {
+      type: String,
+      defautl: 1
+    },
+    libelle: {
+      type: String,
+      trim: true,
+      default: "Actif"
     }
   },
   { _id: false }
@@ -100,6 +127,9 @@ const boutiqueSchema = new mongoose.Schema(
     },
     fond: {
       type: String
+    },
+    etat: {
+      type: etatSchema,
     },
     users: {
       type: [userSchema],

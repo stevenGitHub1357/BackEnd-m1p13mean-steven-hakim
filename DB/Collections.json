@@ -132,6 +132,7 @@
         ],
         "description": "Accès premium",
         "priorite": 1,
+        "duree":30,
         "date_creation": "2026-02-12T00:00:00Z",
         "date_update": "2026-02-12T00:00:00Z"
       },
@@ -145,6 +146,7 @@
         ],
         "description": "Accès gold",
         "priorite": 10,
+        "duree":30,
         "date_creation": "2026-02-12T00:00:00Z",
         "date_update": "2026-02-12T00:00:00Z"
       },
@@ -158,6 +160,7 @@
         ],
         "description": "Accès silver",
         "priorite": 100,
+        "duree":30,
         "date_creation": "2026-02-12T00:00:00Z",
         "date_update": "2026-02-12T00:00:00Z"
       }
@@ -188,11 +191,13 @@
         "abonnement": [
             {
             "id": "699ecc91da0266819afcda0d",
-            "libelle": "Premium",
+            "label": "Premium",
             "montant": 100000,
-            "date": "2026-02-12T00:00:00Z"
+            "date": "2026-02-12T00:00:00Z",
+            "duree":30
             }
         ],
+        "etat": {"id" : "1", "libelle" : "Actif"},
         "date_creation": "2026-02-12T00:00:00Z",
         "date_update": "2026-02-12T00:00:00Z"
         }
@@ -295,10 +300,10 @@
         {
         "id_user": "699eca069b4891705ba3ff55",
         "user": {
-          "id": "699eca069b4891705ba3ff55",
+          "id": "699eca449b4891705ba3ff5a",
           "nom": "Testeur",
-          "prenom": "Admin",
-          "email": "admin@email.com",
+          "prenom": "client",
+          "email": "client@email.com",
           "contact": "0300000001"
         },
         "label": "Commande d'utilisateur",
@@ -315,7 +320,72 @@
         {"libelle": "ENVOYER" },
         {"libelle": "VALIDER" },
         {"libelle": "ANNULER" }
-    ]
+    ],
+
+    "abonnements_demande": [
+      {
+        "boutique": {
+          "id": "699ecd958404a1e72764c4d8",
+          "nom": "Boutique ABC",
+          "description": "Vente de vêtements",
+          "logo": "https://res.cloudinary.com/dl1gg51mg/image/upload/v1771594546/Cloudinary-m1p13mean-steven-hakim/ovenrb4n6ubz760m44hv.png",
+          "fond": "https://res.cloudinary.com/dl1gg51mg/image/upload/v1771594546/Cloudinary-m1p13mean-steven-hakim/ovenrb4n6ubz760m44hv.png"
+        },
+        "user":{
+          "id_user": "699eca169b4891705ba3ff57",
+          "nom": "testeur",
+          "prenom": "boutique",
+          "contact": "0330000002",
+          "email": "boutique@email.com"
+        },
+        "abonnement":{
+          "id": "699ecc91da0266819afcda0d",
+          "label": "Premium",
+          "prix": [
+            {
+                "montant": 100000,
+                "date": "2026-02-12T00:00:00.000Z"
+            }
+          ],
+          "date": "2026-02-12T00:00:00.000Z",
+          "duree": "30",
+          "priorite":1
+        },
+        "statut":"EN_ATTENTE"
+      }
+    ],
+
+    "locals_demande": [
+      {
+        "boutique": {
+          "id": "699ecd958404a1e72764c4d8",
+          "nom": "Boutique ABC",
+          "description": "Vente de vêtements",
+          "logo": "https://res.cloudinary.com/dl1gg51mg/image/upload/v1771594546/Cloudinary-m1p13mean-steven-hakim/ovenrb4n6ubz760m44hv.png",
+          "fond": "https://res.cloudinary.com/dl1gg51mg/image/upload/v1771594546/Cloudinary-m1p13mean-steven-hakim/ovenrb4n6ubz760m44hv.png"
+        },
+        "user":{
+          "id_user": "699eca169b4891705ba3ff57",
+          "nom": "testeur",
+          "prenom": "boutique",
+          "contact": "0330000002",
+          "email": "boutique@email.com"
+        },
+        "local":{
+          "id": "699ecb9f27a23b35993104a6",
+          "taille": 100,
+          "position": "Bloc A - 03",
+          "loyer": [
+            {
+                "montant": 1000000,
+                "date": "2026-02-12T00:00:00.000Z"
+            }
+          ]
+        },
+        "statut":"EN_ATTENTE"
+      }
+  ]
+
 
 
 

@@ -16,7 +16,7 @@ router.get("/", verifyToken, async (req, res) => {
 
 
 // GET BOUTIQUE BY ID
-router.get("/:id", verifyToken, async (req, res) => {
+router.get("/ById/:id", verifyToken, async (req, res) => {
   try {
     const boutique = await Boutique.findById(req.params.id);
 

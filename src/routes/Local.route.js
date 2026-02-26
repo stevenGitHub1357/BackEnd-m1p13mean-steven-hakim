@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Local, LocalEtat } = require("../models/Local");
+const { Local, LocalEtat, LocalDemande } = require("../models/Local");
 const { verifyToken, authorizeRoles } = require("../auth/middleware")
 
 // ----- ROUTES LOCALS -----
@@ -114,6 +114,72 @@ router.delete("/etats/delete/:id", verifyToken, async (req, res) => {
     const deletedEtat = await LocalEtat.findByIdAndDelete(req.params.id);
     if (!deletedEtat) return res.status(404).json({ message: "Etat non trouvé" });
     res.json({ message: "Etat supprimé", deletedEtat });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
+
+
+
+
+router.get("/demande", verifyToken, async (req, res) => {
+  try {
+    const locals = await LocalDemande.find();
+    res.json(locals);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+// =======================
+// CREATE ABONNEMENT DEMANDE
+// =======================
+router.post("/demande/create", verifyToken, async (req, res) => {
+  try {
+    const newLocalDemande = new LocalDemande(req.body);
+    const savedLocalDemande = await newLocalDemande.save();
+
+    res.status(201).json(savedLocalDemande);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// =======================
+// UPDATE ABONNEMENT DEMANDE
+// =======================
+router.put("/demande/update/:id", verifyToken, async (req, res) => {
+  try {
+    const updatedLocalDemande = await LocalDemande.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedLocalDemande)
+      return res.status(404).json({ message: "Abonnement demande non trouvé" });
+
+    res.json(updatedLocalDemande);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// =======================
+// DELETE ABONNEMENT DEMANDE
+// =======================
+router.delete("/demande/delete/:id", verifyToken, async (req, res) => {
+  try {
+    const deletedLocalDemande = await LocalDemande.findByIdAndDelete(req.params.id);
+
+    if (!deletedLocalDemande)
+      return res.status(404).json({ message: "Abonnement demande non trouvé" });
+
+    res.json({
+      message: "Abonnement demande supprimé",
+      deletedLocalDemande
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

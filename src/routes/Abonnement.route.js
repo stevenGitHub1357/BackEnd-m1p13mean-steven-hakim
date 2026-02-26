@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Abonnement = require("../models/Abonnement");
+const {Abonnement, AbonnementDemande} = require("../models/Abonnement");
 const { verifyToken, authorizeRoles } = require("../auth/middleware")
 
 
@@ -78,5 +78,85 @@ router.delete("/delete/:id", verifyToken, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+
+
+router.get("/demande", verifyToken, async (req, res) => {
+  try {
+    const abonnement = await AbonnementDemande.find();
+    res.json(abonnement);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+// =======================
+// GET ABONNEMENT DEMANDE BY ID
+// =======================
+router.get("/demande/ById/:id", verifyToken, async (req, res) => {
+  try {
+    const abonnementDemande = await AbonnementDemande.findById(req.params.id);
+
+    if (!abonnementDemande)
+      return res.status(404).json({ message: "Abonnement demande non trouvé" });
+
+    res.json(abonnementDemande);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// =======================
+// CREATE ABONNEMENT DEMANDE
+// =======================
+router.post("/demande/create", verifyToken, async (req, res) => {
+  try {
+    const newAbonnementDemande = new AbonnementDemande(req.body);
+    const savedAbonnementDemande = await newAbonnementDemande.save();
+
+    res.status(201).json(savedAbonnementDemande);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// =======================
+// UPDATE ABONNEMENT DEMANDE
+// =======================
+router.put("/demande/update/:id", verifyToken, async (req, res) => {
+  try {
+    const updatedAbonnementDemande = await AbonnementDemande.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedAbonnementDemande)
+      return res.status(404).json({ message: "Abonnement demande non trouvé" });
+
+    res.json(updatedAbonnementDemande);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// =======================
+// DELETE ABONNEMENT DEMANDE
+// =======================
+router.delete("/demande/delete/:id", verifyToken, async (req, res) => {
+  try {
+    const deletedAbonnementDemande = await AbonnementDemande.findByIdAndDelete(req.params.id);
+
+    if (!deletedAbonnementDemande)
+      return res.status(404).json({ message: "Abonnement demande non trouvé" });
+
+    res.json({
+      message: "Abonnement demande supprimé",
+      deletedAbonnementDemande
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 module.exports = router;
