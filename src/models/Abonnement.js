@@ -51,6 +51,45 @@ const abonnementSchema = new mongoose.Schema(
   }
 );
 
+
+const abonnementSchemaDemande = new mongoose.Schema(
+  {
+    // _id: {
+    //   type: Number,
+    //   required: true
+    // },
+    id : String,
+    label: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    prix: {
+      type: [prixSchema],
+      default: []
+    },
+    description: {
+      type: String,
+      trim: true
+    },
+    priorite: {
+      type: Number,
+      required: true
+    },
+    duree: {
+      type: String,
+      required: true,
+      default : "10"
+    }
+  },
+  {
+    timestamps: {
+      createdAt: "date_creation",
+      updatedAt: "date_update"
+    }
+  }
+);
+
 // ===== Sous-schema Boutique =====
 const boutiqueSchema = new mongoose.Schema(
   {
@@ -84,9 +123,10 @@ const userSchema = new mongoose.Schema(
 // ===== Schema principal =====
 const abonnementDemandeSchema = new mongoose.Schema(
   {  
+    
     boutique: boutiqueSchema,
     user: userSchema,
-    abonnement: abonnementSchema,
+    abonnement: abonnementSchemaDemande,
     statut: {
       type: String,
       enum: ["EN_ATTENTE", "VALIDER", "REFUSE"],

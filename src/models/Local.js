@@ -41,6 +41,18 @@ const localSchema = new mongoose.Schema(
   { timestamps: { createdAt: "date_creation", updatedAt: "date_update" } }
 );
 
+
+const localSchemaDemande = new mongoose.Schema(
+  {
+    id: String,
+    taille: Number,
+    position: String,
+    loyer: [loyerSchema],
+    etat: etatSchema
+  },
+  { timestamps: { createdAt: "date_creation", updatedAt: "date_update" } }
+);
+
 // ===== Sous-schema Boutique =====
 const boutiqueSchema = new mongoose.Schema(
   {
@@ -76,10 +88,10 @@ const localDemandeSchema = new mongoose.Schema(
   {  
     boutique: boutiqueSchema,
     user: userSchema,
-    local: localSchema,
+    local: localSchemaDemande,
     statut: {
       type: String,
-      enum: ["EN_ATTENTE", "VALIDER", "REFUSE"],
+      enum: ["EN_ATTENTE", "VALIDE", "REFUSE"],
       default: "EN_ATTENTE"
     } 
   },
