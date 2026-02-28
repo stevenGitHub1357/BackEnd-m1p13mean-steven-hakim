@@ -1,14 +1,35 @@
-function isCommandeExpiree(commande) {
-  if (!commande.produits || commande.produits.length === 0) return false;
+const { Commande } = require("../models/Commande");
 
-  const dateCreation = new Date(commande.date_creation);
+const nettoyerCommandesExpirees = async () => {
+  // const commandes = await Commande.find();
+  const commandes = await Commande.find({
+    "statut.libelle": "ENVOYER",
+  });
+  const maintenant = new Date();
 
-  const dureeMax = Math.max(
-    ...commande.produits.map(p => p.duree || 0)
-  );
+  for (const commande of commandes) {
+    // Filtrer produits non expirés
+    const produitsValides = commande.produits.filter((p) => {
+      const dateExpiration = new Date(commande.date_creation);
+      dateExpiration.setDate(dateExpiration.getDate() + p.duree);
 
-  const dateExpiration = new Date(dateCreation);
-  dateExpiration.setDate(dateExpiration.getDate() + dureeMax);
-  return new Date() > dateExpiration;
-}
-module.exports = { isCommandeExpiree };
+      return dateExpiration > maintenant;
+    });
+
+    // 🔥 CAS 1 : Tous les produits sont expirés
+    if (produitsValides.length === 0) {
+      commande.statut = {
+        ...commande.statut,
+        libelle: "EXPIRE",
+      };
+      await commande.save();
+    }
+    // 🔥 CAS 2 : Certains produits expirés seulement
+    else if (produitsValides.length !== commande.produits.length) {
+      commande.produits = produitsValides;
+      await commande.save();
+    }
+  }
+};
+
+module.exports = { nettoyerCommandesExpirees };

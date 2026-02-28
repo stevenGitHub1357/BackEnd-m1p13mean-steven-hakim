@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Commande, CommandeStatut } = require("../models/Commande");
 const { verifyToken, authorizeRoles } = require("../auth/middleware");
-const { isCommandeExpiree } = require("../utils/commande.utils");
+const { nettoyerCommandesExpirees  } = require("../utils/commande.utils");
 
 // ----- ROUTES COMMANDES -----
 // GET ALL COMMANDES
@@ -50,21 +50,22 @@ router.post("/create", verifyToken, async (req, res) => {
   }
 });
 // MES COMMANDES
-router.get("/mes-commandes", verifyToken, async (req, res) => {
+router.get("/mes-commandes", verifyToken,authorizeRoles("CLIENT"), async (req, res) => {
   try {
-    const commandes = await Commande.find({ id_user: req.user.id }).sort({
+    await nettoyerCommandesExpirees();
+    const commandes = await Commande.find({ id_user: req.user.id ,"statut.libelle": "ENVOYER",}).sort({
       date_creation: -1,
     });
-    const commandesValides = [];
-    for (const c of commandes) {
-      if (isCommandeExpiree(c)) {
-        await Commande.findByIdAndDelete(c._id);
-      } else {
-        commandesValides.push(c);
-      }
-    }
-
-    res.json(commandesValides);
+    res.json(commandes);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+router.get("/mes-commandes-refuser", verifyToken,authorizeRoles("CLIENT"), async (req, res) => {
+  try {
+    await nettoyerCommandesExpirees();
+    const commandes = await Commande.find({ id_user: req.user.id ,"statut.libelle": "ANNULER",});
+    res.json(commandes);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
