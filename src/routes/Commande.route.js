@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Commande, CommandeStatut } = require("../models/Commande");
 const { verifyToken, authorizeRoles } = require("../auth/middleware");
-const { nettoyerCommandesExpirees  } = require("../utils/commande.utils");
+const { nettoyerCommandesExpirees } = require("../utils/commande.utils");
 
 // ----- ROUTES COMMANDES -----
 // GET ALL COMMANDES
@@ -50,26 +50,44 @@ router.post("/create", verifyToken, async (req, res) => {
   }
 });
 // MES COMMANDES
-router.get("/mes-commandes", verifyToken,authorizeRoles("CLIENT"), async (req, res) => {
-  try {
-    await nettoyerCommandesExpirees();
-    const commandes = await Commande.find({ id_user: req.user.id ,"statut.libelle": "ENVOYER",}).sort({
-      date_creation: -1,
-    });
-    res.json(commandes);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-router.get("/mes-commandes-refuser", verifyToken,authorizeRoles("CLIENT"), async (req, res) => {
-  try {
-    await nettoyerCommandesExpirees();
-    const commandes = await Commande.find({ id_user: req.user.id ,"statut.libelle": "ANNULER",});
-    res.json(commandes);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+router.get(
+  "/mes-commandes",
+  verifyToken,
+  authorizeRoles("CLIENT"),
+  async (req, res) => {
+    try {
+      await nettoyerCommandesExpirees();
+      const commandes = await Commande.find({
+        id_user: req.user.id,
+        "statut.libelle": "ENVOYER",
+      }).sort({
+        date_creation: -1,
+      });
+      res.json(commandes);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+);
+router.get(
+  "/mes-commandes-refuser",
+  verifyToken,
+  authorizeRoles("CLIENT"),
+  async (req, res) => {
+    try {
+      await nettoyerCommandesExpirees();
+      const commandes = await Commande.find({
+        id_user: req.user.id,
+        "statut.libelle": { $in: ["VALIDER", "ANNULER"] },
+      }).sort({
+        date_creation: -1,
+      });
+      res.json(commandes);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+);
 // UPDATE COMMANDE
 router.put("/update/:id", verifyToken, async (req, res) => {
   try {
