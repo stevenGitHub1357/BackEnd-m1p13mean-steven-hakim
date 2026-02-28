@@ -15,7 +15,7 @@ router.get("/", verifyToken, authorizeRoles("ADMIN", "BOUTIQUE"), async (req, re
 });
 
 // GET USER BY ID
-router.get("/byId/:id", verifyToken, authorizeRoles("ADMIN"), async (req, res) => {
+router.get("/byId/:id", verifyToken, authorizeRoles("ADMIN", "BOUTIQUE", "CLIENT"), async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) return res.status(404).json({ message: "Utilisateur non trouvé" });
