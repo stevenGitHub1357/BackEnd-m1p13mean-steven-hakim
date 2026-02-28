@@ -48,6 +48,17 @@ router.post("/create", verifyToken, async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+
+router.post("/createTest", verifyToken, async (req, res) => {
+  try {
+    const newCommande = new Commande(req.body);
+    const savedCommande = await newCommande.save();
+
+    res.status(201).json(savedCommande);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 // MES COMMANDES
 router.get("/mes-commandes", verifyToken, async (req, res) => {
   try {
