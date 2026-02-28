@@ -298,22 +298,29 @@
     ],
     "commandes": [
         {
-        "id_user": "699eca069b4891705ba3ff55",
-        "user": {
-          "id": "699eca449b4891705ba3ff5a",
-          "nom": "Testeur",
-          "prenom": "client",
-          "email": "client@email.com",
-          "contact": "0300000001"
-        },
-        "label": "Commande d'utilisateur",
-        "produits": [
-            { "id": "699ec5dfbeec136e78e2b11c", "nom": "Samsung S26 Ultra", "qte": 2, "duree": 60 }
-        ],
-        "statut": { "id": "699ed37a17769b1f2db2714d", "libelle": "ENVOYER" },
-        "date_creation": "2026-02-12T00:00:00Z",
-        "date_update": "2026-02-12T00:00:00Z"
-        }
+          "statut": {
+              "id": 1,
+              "libelle": "ENVOYER"
+          },
+          "id_user": "699eca449b4891705ba3ff5a",
+          "labele": "Commande d'utilisateur",
+          "produits": [
+              {
+                  "id": "699ecfa63eef12a60207352c",
+                  "nom": "Samsung S26 Ultra",
+                  "qte": 2,
+                  "duree": 60
+              },
+              {
+                  "id": "69a0294b69fcccfcacc0dfa7",
+                  "nom": "Iphone 18 pro max",
+                  "qte": 2,
+                  "duree": 1
+              }
+          ],
+          "date_creation": "2026-02-12T00:00:00.000Z",
+          "date_update": "2026-02-12T00:00:00.000Z"
+      }
     ],
 
     "commandes_statut": [
