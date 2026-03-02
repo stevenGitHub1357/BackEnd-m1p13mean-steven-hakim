@@ -1,34 +1,59 @@
 const express = require("express");
 const router = express.Router();
 const { User, UserRole } = require("../models/User");
-const { verifyToken, authorizeRoles } = require("../auth/middleware")
+const { verifyToken, authorizeRoles } = require("../auth/middleware");
 
 // ----- ROUTES USERS -----
 // GET ALL USERS
-router.get("/", verifyToken, authorizeRoles("ADMIN", "BOUTIQUE"), async (req, res) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+router.get(
+  "/",
+  verifyToken,
+  authorizeRoles("ADMIN", "BOUTIQUE"),
+  async (req, res) => {
+    try {
+      const users = await User.find();
+      res.json(users);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+);
 
 // GET USER BY ID
-router.get("/byId/:id", verifyToken, authorizeRoles("ADMIN", "BOUTIQUE", "CLIENT"), async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).json({ message: "Utilisateur non trouvé" });
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+router.get(
+  "/byId/:id",
+  verifyToken,
+  authorizeRoles("ADMIN", "BOUTIQUE", "CLIENT"),
+  async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user)
+        return res.status(404).json({ message: "Utilisateur non trouvé" });
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+);
 
 // CREATE USER
-router.post("/create", verifyToken, async (req, res) => {
+// ("nom");
+// ("prenom",
+//   "email",
+//   "password",
+//   "contact",
+router.post("/create", async (req, res) => {
   try {
-    const newUser = new User(req.body);
+    const userData = {
+      ...req.body,
+      role: {
+        id: "3",
+        label: "CLIENT",
+      },
+      date_creation: new Date(),
+      date_update: new Date(),
+    };
+    const newUser = new User(userData);
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
   } catch (error) {
@@ -41,9 +66,10 @@ router.put("/update/:id", verifyToken, async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-      runValidators: true
+      runValidators: true,
     });
-    if (!updatedUser) return res.status(404).json({ message: "Utilisateur non trouvé" });
+    if (!updatedUser)
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
     res.json(updatedUser);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -54,7 +80,8 @@ router.put("/update/:id", verifyToken, async (req, res) => {
 router.delete("/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
-    if (!deletedUser) return res.status(404).json({ message: "Utilisateur non trouvé" });
+    if (!deletedUser)
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
     res.json({ message: "Utilisateur supprimé", deletedUser });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -97,11 +124,16 @@ router.post("/roles/create", verifyToken, async (req, res) => {
 // UPDATE ROLE
 router.put("/roles/update/:id", verifyToken, async (req, res) => {
   try {
-    const updatedRole = await UserRole.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true
-    });
-    if (!updatedRole) return res.status(404).json({ message: "Role non trouvé" });
+    const updatedRole = await UserRole.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
+    if (!updatedRole)
+      return res.status(404).json({ message: "Role non trouvé" });
     res.json(updatedRole);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -112,7 +144,8 @@ router.put("/roles/update/:id", verifyToken, async (req, res) => {
 router.delete("/roles/delete/:id", verifyToken, async (req, res) => {
   try {
     const deletedRole = await UserRole.findByIdAndDelete(req.params.id);
-    if (!deletedRole) return res.status(404).json({ message: "Role non trouvé" });
+    if (!deletedRole)
+      return res.status(404).json({ message: "Role non trouvé" });
     res.json({ message: "Role supprimé", deletedRole });
   } catch (error) {
     res.status(500).json({ message: error.message });
